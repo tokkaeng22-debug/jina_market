@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * 디자인 토큰 — Claude Design 캔버스 "디자인 방향 v0.1" 기준
+ * Sky 500: 넓은 면 · 그라데이션 / Sky 600: 헤더 · 큰 흰 글씨 / Sky 700: 버튼 · 링크(흰 글씨 AA)
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #1f2329;
+  --muted: #5b6573;
+  --line: #e3e9f1;
+  --mist: #eef4fb;
+  --sky-500: #3d9bfa;
+  --sky-600: #2b87f0;
+  --sky-700: #1e6fd6;
+  --cheer: #f6c21c;
+  /* Sky 700 버튼 위 글자색 */
+  --on-accent: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1724;
+    --foreground: #e6ebf2;
+    --muted: #9aa6b8;
+    --line: #253247;
+    --mist: #172235;
+    --sky-500: #5aaeff;
+    --sky-600: #3d9bfa;
+    --sky-700: #6fb4ff;
+    --on-accent: #0f1724;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-cheer: var(--cheer);
+  --color-on-accent: var(--on-accent);
+  --font-sans: var(--font-noto-sans-kr), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sky-500);
+  outline-offset: 2px;
+}

@@ -1,0 +1,448 @@
+<title>jina_market 와이어프레임</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: blueprint sheet. Header with stack summary, then screen frames grouped by area, each with numbered annotations. */
+:root{
+  --bg:#eef1f6; --sheet:#ffffff; --ink:#1b2333; --muted:#5d6779; --line:#c9d0dc; --fill:#e3e8f0; --fill2:#d4dbe6;
+  --accent:#2f6bff; --accent-soft:#e6eeff; --ok:#1f9d61; --warn:#d9822b;
+  --sans:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10141c; --sheet:#171c26; --ink:#e4e8f0; --muted:#98a2b5; --line:#323a4a; --fill:#232a37; --fill2:#2c3443;
+  --accent:#6f9bff; --accent-soft:#1d2a47; --ok:#4cc68c; --warn:#f0a457; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10141c; --sheet:#171c26; --ink:#e4e8f0; --muted:#98a2b5; --line:#323a4a; --fill:#232a37; --fill2:#2c3443;
+  --accent:#6f9bff; --accent-soft:#1d2a47; --ok:#4cc68c; --warn:#f0a457; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55}
+.wrap{max-width:1240px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:30px;margin:0 0 6px;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:20px;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:68ch}
+.mono{font-family:var(--mono);font-size:12px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+header.top{display:grid;gap:20px;margin-bottom:36px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.sum{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.sum b{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{font-size:13px;color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:5px 12px}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+
+section.group{margin-top:48px;display:grid;gap:18px}
+.group-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.screens{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px 24px;align-items:start}
+.screen{display:grid;gap:10px;min-width:0}
+.screen-title{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.screen-title h3{font-size:15px;margin:0}
+.tag{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.idx{border-color:var(--ok);color:var(--ok)}
+.tag.noidx{border-color:var(--warn);color:var(--warn)}
+
+/* phone frame */
+.phone{background:var(--sheet);border:1.5px solid var(--ink);border-radius:26px;padding:12px 12px 0;width:100%;max-width:330px;overflow:hidden;display:flex;flex-direction:column;gap:9px;min-height:560px;position:relative}
+.desk{background:var(--sheet);border:1.5px solid var(--ink);border-radius:10px;overflow:hidden;max-width:100%}
+.desk-bar{height:22px;border-bottom:1px solid var(--line);display:flex;gap:5px;align-items:center;padding:0 8px}
+.desk-bar i{width:7px;height:7px;border-radius:50%;background:var(--fill2)}
+.status{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);padding:0 6px}
+.row{display:flex;gap:8px;align-items:center;min-width:0}
+.between{justify-content:space-between}
+.col{display:grid;gap:6px;min-width:0}
+.grow{flex:1;min-width:0}
+.logo{font-weight:700;font-size:14px}
+.ico{width:18px;height:18px;border-radius:5px;background:var(--fill2);flex:none}
+.img{background:var(--fill) repeating-linear-gradient(135deg,transparent 0 9px,var(--fill2) 9px 10px);border-radius:12px;display:grid;place-items:center;color:var(--muted);font-family:var(--mono);font-size:10.5px;text-align:center;padding:6px}
+.l{height:7px;border-radius:4px;background:var(--fill2)}
+.l.w90{width:90%}.l.w70{width:70%}.l.w50{width:50%}.l.w30{width:30%}
+.t{font-size:12.5px;font-weight:700}
+.s{font-size:10.5px;color:var(--muted)}
+.card{border:1px solid var(--line);border-radius:12px;padding:9px;display:grid;gap:6px;min-width:0}
+.card.soft{background:var(--accent-soft);border-color:transparent}
+.btn{border-radius:10px;padding:8px;text-align:center;font-size:11.5px;font-weight:700;border:1px solid var(--line)}
+.btn.pri{background:var(--accent);color:var(--sheet);border-color:var(--accent)}
+.pill{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.pill.on{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.hscroll{display:grid;grid-auto-flow:column;grid-auto-columns:46%;gap:8px;overflow:hidden}
+.progress{height:6px;border-radius:4px;background:var(--fill2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent)}
+.tabbar{margin-top:auto;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 12px;font-size:9.5px;color:var(--muted);text-align:center;gap:2px}
+.tabbar div{display:grid;justify-items:center;gap:3px}
+.tabbar .on{color:var(--accent);font-weight:700}
+.tabbar .on .ico{background:var(--accent)}
+.sticky{margin-top:auto;border-top:1px solid var(--line);padding:9px 0 14px;display:flex;gap:8px;align-items:center}
+.input{border:1px solid var(--line);border-radius:9px;padding:7px 9px;font-size:10.5px;color:var(--muted)}
+.check{display:flex;gap:6px;align-items:flex-start;font-size:10.5px}
+.check i{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:3px;flex:none;margin-top:2px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px;font-size:11px;text-align:center}
+.seg div{padding:6px;border-radius:7px}
+.seg .on{background:var(--ink);color:var(--sheet);font-weight:700}
+.list > div{border-bottom:1px dashed var(--line);padding:6px 0;display:flex;gap:8px;align-items:center}
+.n{position:relative}
+.n::after{content:attr(data-n);position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--sheet);font:500 10px/18px var(--mono);text-align:center;z-index:1}
+.notes{margin:0;padding:0;list-style:none;display:grid;gap:5px;font-size:12.5px;color:var(--muted);max-width:330px}
+.notes li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.notes li::before{content:attr(data-n);width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:500 10px/18px var(--mono);text-align:center;margin-top:1px}
+.wide{grid-column:1/-1}
+.dash{display:grid;grid-template-columns:150px 1fr;min-height:380px}
+.side{border-right:1px solid var(--line);padding:12px;display:grid;align-content:start;gap:8px;font-size:12px}
+.side .on{color:var(--accent);font-weight:700}
+.main{padding:16px;display:grid;gap:12px;align-content:start;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.table{border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:11.5px}
+.table div{display:grid;grid-template-columns:1.3fr 1.6fr .8fr .8fr;gap:8px;padding:7px 10px;border-top:1px solid var(--line)}
+.table div:first-child{border-top:0;background:var(--fill);font-weight:700}
+.scrollx{overflow-x:auto}
+.scrollx > .desk{min-width:760px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px}
+.flow span.box{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:6px 10px}
+.flow span.arr{color:var(--muted)}
+footer{margin-top:56px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:6px}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,1fr)}.dash{grid-template-columns:1fr}.side{display:none}h1{font-size:24px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="col">
+    <span class="eyebrow">Lo-fi wireframe · v1.0 · 2026-11-06</span>
+    <h1>jina_market 와이어프레임</h1>
+    <p class="sub">동영상 강의, 전자책, 라이브 미팅을 직접 판매하는 1인 사이트의 화면 구조입니다. 모바일 우선으로 그렸고, 색과 그래픽은 Claude Design이 레퍼런스(상상단, GDWEB 2025 GOLD)를 참고해 입힐 예정입니다. 파란색은 주요 행동(CTA) 위치만 표시합니다.</p>
+  </div>
+  <div class="summary">
+    <div class="sum"><b>프레임워크</b>Next.js App Router · next-intl(ko/en)</div>
+    <div class="sum"><b>데이터 · 인증</b>Supabase Postgres + RLS · 카카오/구글 로그인</div>
+    <div class="sum"><b>미디어 · 파일</b>Cloudflare Stream · R2 · Images</div>
+    <div class="sum"><b>결제</b>국내 PortOne+토스 / 해외 Lemon Squeezy (PayPal 포함, MoR)</div>
+  </div>
+  <div class="legend">
+    <span><span class="tag idx">index</span> 검색 색인 대상</span>
+    <span><span class="tag noidx">noindex</span> 로그인 · 비공개</span>
+    <span><span class="tag">JSON-LD</span> 구조화 데이터 종류</span>
+  </div>
+  <nav class="toc" aria-label="화면 그룹">
+    <a href="#public">공개 · 판매</a><a href="#checkout">결제</a><a href="#learn">학습</a><a href="#board">게시판</a><a href="#admin">관리자</a>
+  </nav>
+</header>
+
+<!-- 공개 -->
+<section class="group" id="public">
+  <div class="group-head"><h2>공개 · 판매 화면</h2><span class="s">SSG/ISR · hreflang ko/en · 모든 페이지에 Organization + Person</span></div>
+  <div class="screens">
+
+    <div class="screen">
+      <div class="screen-title"><h3>홈</h3><span class="tag idx">index · WebSite</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row between"><span class="logo">jina</span><div class="row"><span class="pill">KO / EN</span><span class="ico"></span></div></div>
+        <div class="card soft n" data-n="1">
+          <div class="row"><div class="col grow"><span class="t">한 줄 가치 제안 헤드라인</span><div class="l w90"></div><div class="l w70"></div></div><div class="img" style="width:84px;height:84px">3D 일러스트</div></div>
+          <div class="btn pri">무료 미니 강의 받기</div>
+        </div>
+        <div class="chips n" data-n="2"><span class="pill on">전체</span><span class="pill">강의</span><span class="pill">전자책</span><span class="pill">라이브</span></div>
+        <div class="row between"><span class="t">추천 상품</span><span class="s">전체보기</span></div>
+        <div class="hscroll">
+          <div class="card"><div class="img" style="height:70px">썸네일</div><span class="s">강의</span><div class="l w90"></div><span class="t">₩129,000</span></div>
+          <div class="card"><div class="img" style="height:70px">표지</div><span class="s">전자책</span><div class="l w70"></div><span class="t">₩19,000</span></div>
+        </div>
+        <div class="card n" data-n="3"><div class="row"><span class="pill">LIVE</span><span class="s">11/20 (목) 20:00 KST · 잔여 12석</span></div><div class="l w90"></div></div>
+        <div class="row between"><span class="t">최신 글</span><span class="s">블로그</span></div>
+        <div class="list n" data-n="4"><div><div class="img" style="width:38px;height:38px;border-radius:8px"></div><div class="col grow"><div class="l w90"></div><div class="l w50"></div></div></div></div>
+        <div class="tabbar"><div class="on"><span class="ico"></span>홈</div><div><span class="ico"></span>상품</div><div><span class="ico"></span>내 학습</div><div><span class="ico"></span>마이</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">히어로는 리드 마그넷 CTA. 이메일 · 카카오 채널 구독을 받습니다.</li><li data-n="2">상품 유형 필터. 칩 대신 탭으로 바꿔도 됩니다.</li><li data-n="3">다가오는 라이브는 날짜와 잔여석으로 긴박감을 줍니다.</li><li data-n="4">블로그 최신 글은 SEO 내부 링크 역할도 합니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>홈 하단 · 푸터 (전 페이지 공통)</h3><span class="tag idx">index · Organization</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="card soft"><span class="t">아직 고민 중이라면</span><div class="l w70"></div><div class="btn pri">무료 미니 강의 받기</div></div>
+        <div class="col" style="margin-top:auto;background:var(--fill);margin-inline:-12px;padding:14px 14px 20px;gap:9px">
+          <div class="chips n" data-n="1"><span class="pill">이용약관</span><span class="pill" style="font-weight:700;color:var(--accent);border-color:var(--accent)">개인정보처리방침</span><span class="pill">환불정책</span><span class="pill">FAQ</span><span class="pill">KO / EN</span></div>
+          <div class="col n" data-n="2" style="gap:3px;font-size:10.5px;color:var(--muted)">
+            <span>상호 [상호명] · 대표 [대표자명]</span>
+            <span>사업자등록번호 [000-00-00000] <u>사업자정보확인</u></span>
+            <span>통신판매업 신고 [제0000-지역-0000호]</span>
+            <span>주소 [사업장 주소]</span>
+            <span>고객센터 [이메일] · [전화] (평일 10:00–18:00)</span>
+            <span>호스팅 제공자 [Vercel Inc.]</span>
+          </div>
+          <div class="s n" data-n="3">International orders are processed by Lemon Squeezy, our Merchant of Record.</div>
+          <div class="row between"><span class="s">© 2026 jina_market</span><div class="row"><span class="ico"></span><span class="ico"></span><span class="ico"></span></div></div>
+        </div>
+      </div>
+      <ol class="notes"><li data-n="1">법정 링크 3종은 모든 페이지에 노출합니다. 개인정보처리방침은 굵게 · 색으로 구분합니다 (개인정보보호법 제30조, 처리방침 작성지침).</li><li data-n="2">전자상거래법 제10조 사업자 표시 항목. "사업자정보확인"은 공정위 사업자 정보 공개 페이지로 연결합니다.</li><li data-n="3">영어판 푸터에만 노출합니다. 해외 결제는 Lemon Squeezy가 판매자로 처리한다는 고지입니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>강의 상세</h3><span class="tag idx">index · Course + Offer + FAQPage</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="s grow">홈 › 강의 › 강의명</span><span class="ico"></span></div>
+        <div class="img n" data-n="1" style="height:130px">미리보기 영상 (Stream, 공개 레슨)</div>
+        <span class="t" style="font-size:15px">강의 제목 두 줄까지</span>
+        <div class="row"><span class="s">★ 4.9 (128)</span><span class="s">· 12시간 · 48개 레슨 · 수강 1년</span></div>
+        <div class="seg n" data-n="2"><div class="on">소개</div><div>커리큘럼</div></div>
+        <div class="card"><span class="t">이런 분께 추천해요</span><div class="l w90"></div><div class="l w70"></div><div class="l w90"></div></div>
+        <div class="card n" data-n="3"><div class="row between"><span class="t">1. 시작하기</span><span class="s">4강</span></div><div class="row"><span class="pill">미리보기</span><div class="l grow"></div></div><div class="row"><span class="ico"></span><div class="l grow"></div></div></div>
+        <div class="card n" data-n="4"><span class="t">자주 묻는 질문</span><div class="row between"><div class="l w70"></div><span class="s">+</span></div><div class="row between"><div class="l w50"></div><span class="s">+</span></div></div>
+        <div class="sticky n" data-n="5"><div class="col"><span class="s">₩129,000</span><span class="t">얼리버드 ₩99,000</span></div><div class="btn pri grow">수강 신청</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">비구매자에게는 is_preview 레슨만 재생됩니다.</li><li data-n="2">소개 탭 본문은 SSR로 렌더링해서 크롤러가 읽을 수 있게 합니다.</li><li data-n="3">커리큘럼은 섹션별 접기 구조입니다. 레슨 제목도 색인 대상입니다.</li><li data-n="4">AEO용 FAQ: 대상, 기간, 환불, 난이도.</li><li data-n="5">하단 고정 구매 바. 통화는 국가에 따라 KRW/USD로 자동 표시합니다. 이미 구매한 회원(유효한 entitlement 보유)에게는 버튼이 "이어서 학습하기"로 바뀝니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>전자책 상세</h3><span class="tag idx">index · Book + Offer</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="s grow">홈 › 전자책</span><span class="ico"></span></div>
+        <div class="row" style="align-items:flex-start"><div class="img" style="width:100px;height:140px">표지</div><div class="col grow"><span class="t">전자책 제목</span><span class="s">PDF · 186쪽 · 2026.10 개정</span><div class="l w90"></div><div class="l w70"></div><span class="t">₩19,000 / $15</span></div></div>
+        <div class="card n" data-n="1"><span class="t">목차</span><div class="l w90"></div><div class="l w70"></div><div class="l w90"></div><div class="l w50"></div></div>
+        <div class="card soft n" data-n="2"><span class="t">1장 미리 읽기</span><div class="l w90"></div><div class="l w90"></div><div class="l w70"></div><span class="s" style="color:var(--accent)">계속 읽으려면 구매하세요</span></div>
+        <div class="card"><span class="t">함께 사면 좋은 강의</span><div class="row"><div class="img" style="width:56px;height:40px;border-radius:8px"></div><div class="col grow"><div class="l w90"></div><span class="s">번들 20% 할인</span></div></div></div>
+        <div class="sticky"><div class="btn">미리보기 PDF</div><div class="btn pri grow">구매하기</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">목차는 텍스트로 노출합니다. 롱테일 키워드를 받아냅니다.</li><li data-n="2">샘플 챕터에는 isAccessibleForFree 페이월 마크업을 붙입니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>라이브 상세</h3><span class="tag idx">index · Event + Offer</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="s grow">홈 › 라이브</span><span class="ico"></span></div>
+        <div class="img" style="height:110px">라이브 커버</div>
+        <div class="row"><span class="pill on">LIVE · Zoom</span><span class="pill">정원 30명</span></div>
+        <span class="t" style="font-size:15px">라이브 Q&amp;A 제목</span>
+        <div class="card soft n" data-n="1"><div class="row between"><span class="t">11월 20일 (목)</span><span class="t">20:00 – 21:30</span></div><span class="s">내 시간대 기준 · Asia/Seoul</span><div class="progress"><i style="width:60%"></i></div><span class="s">18 / 30석 · 마감 11/19</span></div>
+        <div class="card"><span class="t">진행 순서</span><div class="l w90"></div><div class="l w70"></div><div class="l w50"></div></div>
+        <div class="card n" data-n="2"><span class="t">다시보기 제공</span><span class="s">종료 후 7일 이내 녹화본 업로드</span></div>
+        <div class="sticky"><div class="col"><span class="t">₩49,000</span></div><div class="btn pri grow">자리 예약하기</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">일정은 방문자 시간대로 변환해서 보여줍니다. 해외 고객 필수 기능입니다.</li><li data-n="2">매진되면 버튼이 "대기 명단 등록"으로 바뀝니다.</li></ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- 결제 -->
+<section class="group" id="checkout">
+  <div class="group-head"><h2>결제</h2><span class="s">장바구니 없이 바로 결제 · 국가와 통화에 따라 결제사 분기</span></div>
+  <div class="flow">
+    <span class="box">상품 상세</span><span class="arr">→</span><span class="box">체크아웃 (국가 판별)</span><span class="arr">→</span>
+    <span class="box">KR · KRW → PortOne(토스)</span><span class="arr">/</span><span class="box">해외 · USD → Lemon Squeezy 결제창 (카드 · PayPal)</span><span class="arr">→</span>
+    <span class="box">서버 검증 (서명 · 금액 · 회원 ID)</span><span class="arr">→</span><span class="box">orders 확정 + entitlements 자동 부여</span><span class="arr">→</span><span class="box">결제 완료 → 내 학습 · 마이페이지</span><span class="arr">+</span><span class="box">이메일/알림톡</span>
+  </div>
+  <div class="screens">
+
+    <div class="screen">
+      <div class="screen-title"><h3>체크아웃 · 국내</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="t grow">주문 / 결제</span></div>
+        <div class="seg n" data-n="1"><div class="on">대한민국 · ₩</div><div>Global · $</div></div>
+        <div class="card"><div class="row"><div class="img" style="width:56px;height:40px;border-radius:8px"></div><div class="col grow"><span class="t">강의 제목</span><span class="s">수강 기간 1년</span></div></div></div>
+        <div class="row"><div class="input grow">쿠폰 코드</div><div class="btn">적용</div></div>
+        <div class="card"><span class="t">결제 수단</span><div class="chips"><span class="pill on">카드</span><span class="pill">카카오페이</span><span class="pill">네이버페이</span><span class="pill">토스페이</span><span class="pill">가상계좌</span></div></div>
+        <div class="card"><div class="row between"><span class="s">상품 금액</span><span class="s">₩129,000</span></div><div class="row between"><span class="s">할인</span><span class="s">-₩30,000</span></div><div class="row between"><span class="t">결제 금액</span><span class="t">₩99,000</span></div></div>
+        <div class="col n" data-n="2"><div class="check"><i></i><span>디지털 콘텐츠 특성상 수강 시작 후에는 청약철회가 제한됨을 확인했습니다 (필수)</span></div><div class="check"><i></i><span>이용약관 · 개인정보 처리 동의 (필수)</span></div></div>
+        <div class="sticky"><div class="btn pri grow">₩99,000 결제하기</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">IP 국가로 기본값을 정하고, 사용자가 직접 바꿀 수도 있습니다.</li><li data-n="2">전자상거래법상 청약철회 제한 사전 고지. 동의 체크 전에는 버튼을 비활성화합니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>Checkout · Global</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="t grow">Checkout</span></div>
+        <div class="seg"><div>대한민국 · ₩</div><div class="on">Global · $</div></div>
+        <div class="card"><div class="row"><div class="img" style="width:56px;height:40px;border-radius:8px"></div><div class="col grow"><span class="t">Course title</span><span class="s">1-year access · English subtitles</span></div></div></div>
+        <div class="input">Email for receipt</div>
+        <div class="card n" data-n="1"><div class="row between"><span class="t">Total</span><span class="t">$79.00</span></div><span class="s">Tax/VAT calculated at payment by Lemon Squeezy</span></div>
+        <div class="card soft n" data-n="2"><span class="s">Pay with card, PayPal, Apple Pay or Google Pay in the secure checkout overlay.</span><div class="chips"><span class="pill">Card</span><span class="pill">PayPal</span><span class="pill">Apple Pay</span></div></div>
+        <div class="check"><i></i><span>I agree to the Terms and Refund Policy</span></div>
+        <div class="sticky"><div class="btn pri grow">Continue to payment</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">MoR 구조라서 국가별 세금은 Lemon Squeezy 결제창에서 계산됩니다.</li><li data-n="2">결제창은 오버레이로 띄웁니다. PayPal을 따로 연동할 필요가 없습니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>결제 완료</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="img" style="height:150px;margin-top:20px">축하 3D 일러스트</div>
+        <span class="t" style="font-size:16px;text-align:center">결제가 완료됐어요</span>
+        <span class="s" style="text-align:center">주문번호 JM-20261106-0042 · 영수증을 이메일로 보냈어요</span>
+        <div class="card n" data-n="1"><span class="t">바로 시작하기</span><div class="btn pri">첫 강의 보기</div><div class="btn">전자책 다운로드</div><div class="btn">캘린더에 라이브 추가 (.ics)</div><div class="btn">마이페이지에서 전체 보기</div></div>
+        <div class="card soft n" data-n="2"><span class="t">카카오 채널 추가하고 공지 받기</span><span class="s">새 라이브 · 개정판 알림</span></div>
+      </div>
+      <ol class="notes"><li data-n="1">이 화면은 entitlement가 부여된 뒤에만 보입니다. 구매한 상품 유형에 맞는 다음 행동과 마이페이지 이동을 보여줍니다.</li><li data-n="2">재구매로 이어지게 구독 채널을 확보합니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>결제 확인 중 · 입금 대기</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="img" style="height:120px;margin-top:20px">생각 중 포즈</div>
+        <div class="card n" data-n="1" style="text-align:center"><span class="t" style="font-size:15px">결제를 확인하고 있어요</span><span class="s">보통 몇 초 안에 끝나요. 이 화면을 닫아도 결제는 그대로 처리돼요.</span><div class="progress"><i style="width:45%"></i></div></div>
+        <div class="card soft n" data-n="2"><span class="t">가상계좌 입금 대기</span><span class="s">[은행] [계좌번호] · ₩99,000</span><span class="s">입금 기한 11/09 23:59 · 입금이 확인되면 바로 수강할 수 있어요</span><div class="btn">계좌번호 복사</div></div>
+        <div class="card n" data-n="3"><span class="t">결제에 실패했어요</span><span class="s">카드사 사유: [사유] · 결제되지 않았어요</span><div class="btn pri">다시 결제하기</div></div>
+        <div class="btn">마이페이지 · 주문 내역</div>
+      </div>
+      <ol class="notes"><li data-n="1">결제창에서 돌아오면 서버가 결제사 API로 직접 확인합니다. 웹훅이 먼저 오든 복귀가 먼저 오든 같은 부여 함수를 쓰고 주문번호로 중복을 막습니다. 확인되면 결제 완료 화면으로 자동 이동합니다.</li><li data-n="2">가상계좌는 주문을 "입금 대기"로 두고, 입금 웹훅이 오면 그때 권한을 주고 알림을 보냅니다.</li><li data-n="3">실패 · 취소 시에는 권한을 주지 않고 재시도 버튼을 보여줍니다. 실제로는 세 상태 중 하나만 표시합니다.</li></ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- 학습 -->
+<section class="group" id="learn">
+  <div class="group-head"><h2>학습 (회원)</h2><span class="s">SSR · 전부 noindex · entitlements로 접근 제어</span></div>
+  <div class="screens">
+
+    <div class="screen">
+      <div class="screen-title"><h3>내 학습</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row between"><span class="t" style="font-size:15px">지나님, 오늘도 한 걸음</span><span class="ico"></span></div>
+        <div class="card soft n" data-n="1"><span class="s">이어서 보기</span><div class="row"><div class="img" style="width:70px;height:46px;border-radius:8px">▶</div><div class="col grow"><span class="t">3-2. 레슨 제목</span><div class="progress"><i style="width:62%"></i></div><span class="s">62% · 12:40부터</span></div></div></div>
+        <div class="card n" data-n="2"><span class="t">이번 주 학습</span><div class="row between"><span class="pill on">월</span><span class="pill on">화</span><span class="pill">수</span><span class="pill on">목</span><span class="pill">금</span><span class="pill">토</span><span class="pill">일</span></div></div>
+        <div class="seg"><div class="on">강의 2</div><div>전자책 · 라이브 3</div></div>
+        <div class="list">
+          <div><div class="img" style="width:46px;height:34px;border-radius:6px"></div><div class="col grow"><div class="l w90"></div><div class="progress"><i style="width:40%"></i></div></div></div>
+          <div><div class="img" style="width:46px;height:34px;border-radius:6px"></div><div class="col grow"><div class="l w70"></div><div class="progress"><i style="width:85%"></i></div></div></div>
+        </div>
+        <div class="card n" data-n="3"><div class="row between"><span class="t">과제 마감 D-2</span><span class="pill">제출하기</span></div><div class="l w70"></div></div>
+        <div class="tabbar"><div><span class="ico"></span>홈</div><div><span class="ico"></span>상품</div><div class="on"><span class="ico"></span>내 학습</div><div><span class="ico"></span>마이</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">마지막 재생 위치(lesson_progress)에서 바로 이어 봅니다.</li><li data-n="2">학습 습관 표시. 레퍼런스의 기록 캘린더를 응용합니다.</li><li data-n="3">마감이 임박한 과제를 먼저 보여줍니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>레슨 플레이어</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="s grow">강의명 › 3-2</span><span class="ico"></span></div>
+        <div class="img n" data-n="1" style="height:150px;position:relative">Stream 플레이어 (서명 토큰)<span class="mono" style="position:absolute;right:10px;bottom:8px;opacity:.6">user@email.com</span></div>
+        <div class="row between"><span class="t">3-2. 레슨 제목</span><span class="pill">1.25x</span></div>
+        <div class="seg n" data-n="2"><div class="on">스크립트</div><div>자료 · 질문</div></div>
+        <div class="card"><span class="s">00:12</span><div class="l w90"></div><span class="s">01:05</span><div class="l w70"></div><span class="s">02:30</span><div class="l w90"></div></div>
+        <div class="card n" data-n="3"><div class="row"><span class="ico"></span><span class="s grow">실습자료.zip · 12MB</span><span class="pill">다운로드</span></div></div>
+        <div class="sticky"><div class="btn">이전</div><div class="btn pri grow">완료하고 다음 레슨</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">구매자 이메일을 워터마크로 띄웁니다. 계정당 동시 재생 기기는 2대까지입니다.</li><li data-n="2">타임스탬프 스크립트를 누르면 해당 위치로 이동합니다.</li><li data-n="3">자료는 R2 Presigned URL(10분 유효)로 내려받습니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>마이페이지</h3><span class="tag noidx">noindex</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><div class="img" style="width:46px;height:46px;border-radius:50%"></div><div class="col grow"><span class="t">지나</span><span class="s">카카오 로그인 · KO</span></div><span class="pill">설정</span></div>
+        <div class="card n" data-n="1"><span class="t">전자책 다운로드</span><div class="row between"><span class="s">전자책 제목 · v2</span><span class="pill">PDF ↓</span></div><span class="s">남은 다운로드 3/5회 · 개인 워터마크 포함</span></div>
+        <div class="card"><span class="t">예약한 라이브</span><div class="row between"><span class="s">11/20 20:00</span><span class="pill">Zoom 링크</span></div></div>
+        <div class="card n" data-n="2"><span class="t">주문 내역</span><div class="list"><div><span class="s grow">JM-0042 · ₩99,000</span><span class="pill">영수증</span></div><div><span class="s grow">LS-8817 · $15.00</span><span class="pill">Invoice</span></div></div></div>
+        <div class="card"><span class="t">로그인 기기</span><span class="s">2대 사용 중 · 관리</span></div>
+        <div class="tabbar"><div><span class="ico"></span>홈</div><div><span class="ico"></span>상품</div><div><span class="ico"></span>내 학습</div><div class="on"><span class="ico"></span>마이</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">다운로드할 때 서버에서 워터마크를 넣은 PDF를 만듭니다.</li><li data-n="2">결제사와 상관없이 주문을 한 목록으로 보여줍니다.</li></ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- 게시판 -->
+<section class="group" id="board">
+  <div class="group-head"><h2>게시판</h2><span class="s">콘텐츠 게시판은 공개 · 색인 / 과제 게시판은 비공개</span></div>
+  <div class="screens">
+
+    <div class="screen">
+      <div class="screen-title"><h3>블로그 글</h3><span class="tag idx">index · BlogPosting + FAQPage</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="s grow">홈 › 블로그 › 카테고리</span><span class="ico"></span></div>
+        <span class="t" style="font-size:15px">질문형 제목: ○○는 어떻게 시작하나요?</span>
+        <div class="row n" data-n="1"><div class="img" style="width:26px;height:26px;border-radius:50%"></div><span class="s">지나 · 작성 2026.10.02 · 수정 2026.11.01</span></div>
+        <div class="card soft n" data-n="2"><span class="t">핵심 요약</span><div class="l w90"></div><div class="l w70"></div></div>
+        <div class="col"><span class="t">H2 질문형 소제목</span><div class="l w90"></div><div class="l w90"></div><div class="l w50"></div></div>
+        <div class="img" style="height:80px">본문 이미지 (Cloudflare Images)</div>
+        <div class="card n" data-n="3"><div class="row"><div class="img" style="width:50px;height:36px;border-radius:6px"></div><div class="col grow"><span class="s">이 글과 관련된 강의</span><div class="l w70"></div></div><span class="pill">보기</span></div></div>
+        <div class="card"><span class="t">작성자 소개</span><div class="l w90"></div><span class="s">YouTube · Instagram</span></div>
+      </div>
+      <ol class="notes"><li data-n="1">작성일과 수정일을 명시합니다. GEO 신뢰 신호입니다.</li><li data-n="2">첫 화면에 결론부터 보여주는 AEO 구조입니다.</li><li data-n="3">글마다 관련 상품 CTA를 붙여 콘텐츠에서 판매로 이어지게 합니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>과제 목록</h3><span class="tag noidx">noindex · 수강생 전용</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="t grow">과제 · 강의명</span></div>
+        <div class="chips"><span class="pill on">전체</span><span class="pill">미제출</span><span class="pill">검토중</span><span class="pill">완료</span></div>
+        <div class="card n" data-n="1"><div class="row between"><span class="t">과제 3. 주제 정하기</span><span class="pill" style="color:var(--warn);border-color:var(--warn)">D-2</span></div><span class="s">마감 11/08 23:59</span><div class="btn pri">제출하기</div></div>
+        <div class="card"><div class="row between"><span class="t">과제 2. 초안 작성</span><span class="pill">검토중</span></div><span class="s">11/03 제출</span></div>
+        <div class="card"><div class="row between"><span class="t">과제 1. 자기소개</span><span class="pill" style="color:var(--ok);border-color:var(--ok)">피드백 도착</span></div><span class="s">지나: "방향 아주 좋아요…"</span></div>
+        <div class="tabbar"><div><span class="ico"></span>홈</div><div><span class="ico"></span>상품</div><div class="on"><span class="ico"></span>내 학습</div><div><span class="ico"></span>마이</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">상태는 미제출, 검토중, 피드백 도착으로 나뉩니다. 색과 라벨을 함께 써서 구분합니다.</li></ol>
+    </div>
+
+    <div class="screen">
+      <div class="screen-title"><h3>과제 제출</h3><span class="tag noidx">noindex · 본인+운영자</span></div>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●●</span></div>
+        <div class="row"><span class="ico"></span><span class="t grow">과제 3 제출</span></div>
+        <div class="card soft"><span class="t">과제 안내</span><div class="l w90"></div><div class="l w70"></div></div>
+        <div class="input" style="height:120px">에디터 (Tiptap) · 텍스트, 이미지, 링크</div>
+        <div class="card n" data-n="1"><div class="row"><span class="ico"></span><span class="s grow">초안.pdf · 2.4MB</span><span class="s">✕</span></div><div class="btn">+ 파일 첨부 (최대 50MB)</div></div>
+        <div class="col n" data-n="2"><span class="s">공개 범위</span><div class="seg"><div class="on">운영자만</div><div>수강생 공개</div></div></div>
+        <div class="sticky"><div class="btn">임시저장</div><div class="btn pri grow">제출하기</div></div>
+      </div>
+      <ol class="notes"><li data-n="1">브라우저가 R2로 바로 업로드합니다(Presigned PUT). 서버를 거치지 않습니다.</li><li data-n="2">기본값은 운영자만 보기입니다. 수강생 간 공유는 선택입니다.</li></ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- 관리자 -->
+<section class="group" id="admin">
+  <div class="group-head"><h2>관리자</h2><span class="s">데스크톱 우선 · /admin · robots 차단 + 권한 체크</span></div>
+  <div class="screen wide">
+    <div class="screen-title"><h3>관리자 대시보드</h3><span class="tag noidx">noindex</span></div>
+    <div class="scrollx">
+      <div class="desk">
+        <div class="desk-bar"><i></i><i></i><i></i></div>
+        <div class="dash">
+          <div class="side"><span class="logo">jina admin</span><span class="on">대시보드</span><span>상품</span><span>주문</span><span>수강생</span><span>과제 검토</span><span>게시판</span><span>라이브</span><span>쿠폰 · 번들</span><span>설정</span></div>
+          <div class="main">
+            <div class="row between"><span class="t" style="font-size:15px">이번 달 현황</span><div class="row"><span class="pill on">KRW</span><span class="pill">USD</span><span class="pill">2026.11</span></div></div>
+            <div class="kpis n" data-n="1">
+              <div class="card"><span class="s">매출 (KRW)</span><span class="t">₩4,820,000</span></div>
+              <div class="card"><span class="s">매출 (USD, LS 정산 전)</span><span class="t">$1,236</span></div>
+              <div class="card"><span class="s">신규 수강생</span><span class="t">57</span></div>
+              <div class="card"><span class="s">검토 대기 과제</span><span class="t" style="color:var(--warn)">14</span></div>
+            </div>
+            <div class="img" style="height:120px">일별 매출 차트 (국내 / 해외 누적)</div>
+            <div class="table n" data-n="2">
+              <div><span>주문</span><span>상품</span><span>결제사</span><span>상태</span></div>
+              <div><span>JM-0042</span><span>강의 A</span><span>PortOne</span><span>완료</span></div>
+              <div><span>LS-8817</span><span>전자책 B</span><span>Lemon Squeezy</span><span>완료</span></div>
+              <div><span>JM-0041</span><span>라이브 11/20</span><span>PortOne</span><span>환불 요청</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ol class="notes" style="max-width:none"><li data-n="1">매출은 통화별로 따로 표시합니다. 환산 합계는 참고용입니다.</li><li data-n="2">두 결제사의 웹훅 결과를 하나의 orders 테이블로 모아 보여줍니다.</li></ol>
+  </div>
+</section>
+
+<footer>
+  <span>원본 기획: docs/PLAN.md · 디자인 의뢰: docs/DESIGN_BRIEF.md</span>
+  <span>디자인 레퍼런스: 상상단 (GDWEB 2025 GOLD PRIZE, 헤이하이컴퍼니) · gdweb.co.kr/sub/view.asp?Txt_fgbn=7&amp;str_no=23979</span>
+</footer>
+</div>

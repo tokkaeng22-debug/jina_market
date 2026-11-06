@@ -1,0 +1,49 @@
+{
+  "Meta": {
+    "siteName": "jina",
+    "defaultTitle": "jina | Courses · Ebooks · Live sessions",
+    "defaultDescription": "[One-line intro] Online courses, ebooks and live sessions by jina."
+  },
+  "Nav": {
+    "home": "Home",
+    "classes": "Classes",
+    "blog": "Blog",
+    "myLearning": "My learning",
+    "language": "Language",
+    "switchTo": "한국어"
+  },
+  "Home": {
+    "heroTitle": "[One-line value proposition]",
+    "heroAccent": "Start for free",
+    "heroCta": "Get the free mini course",
+    "mascotAlt": "Banjjak the mascot waving",
+    "comingSoon": "We're getting ready. Courses and ebooks open soon."
+  },
+  "Footer": {
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "refund": "Refund Policy",
+    "businessName": "Company",
+    "representative": "Representative",
+    "businessNumber": "Business registration no.",
+    "businessCheck": "Verify business",
+    "mailOrderNumber": "Mail-order sales registration",
+    "address": "Address",
+    "contact": "Support",
+    "hours": "Weekdays 10:00–18:00 KST",
+    "hosting": "Hosting",
+    "morNotice": "International orders are processed by Lemon Squeezy, our Merchant of Record."
+  },
+  "Legal": {
+    "draftNotice": "This document is a draft. The final version will be published before launch.",
+    "updated": "Effective date",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "refund": "Refund Policy"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "This page may have moved or been removed.",
+    "home": "Go to home"
+  }
+}
