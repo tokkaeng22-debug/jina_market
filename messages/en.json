@@ -10,14 +10,23 @@
     "blog": "Blog",
     "myLearning": "My learning",
     "language": "Language",
-    "switchTo": "한국어"
+    "switchTo": "한국어",
+    "account": "My learning",
+    "login": "Log in"
   },
   "Home": {
     "heroTitle": "[One-line value proposition]",
     "heroAccent": "Start for free",
     "heroCta": "Get the free mini course",
     "mascotAlt": "Banjjak the mascot waving",
-    "comingSoon": "We're getting ready. Courses and ebooks open soon."
+    "productsTitle": "Open classes",
+    "productsLead": "Pick a course, an ebook, or a live session.",
+    "leadTitle": "Get the free mini course",
+    "leadBody": "Leave your email and get one short lesson a day for 3 days.",
+    "leadPlaceholder": "name@example.com",
+    "leadSubmit": "Send it to me",
+    "leadDone": "You're in. Check your inbox. (demo)",
+    "leadInvalid": "Check the email format."
   },
   "Footer": {
     "terms": "Terms of Service",
@@ -45,5 +54,151 @@
     "title": "Page not found",
     "body": "This page may have moved or been removed.",
     "home": "Go to home"
+  },
+  "Demo": {
+    "banner": "This is a demo. No real login or payment happens.",
+    "reset": "Start over"
+  },
+  "Shop": {
+    "type": {
+      "course": "Video course",
+      "ebook": "Ebook",
+      "live": "Live"
+    },
+    "detail": "View details",
+    "buy": "Buy now",
+    "continue": "Continue learning",
+    "download": "Get the ebook",
+    "joinInfo": "See how to join"
+  },
+  "Product": {
+    "curriculum": "Curriculum",
+    "preview": "Preview",
+    "minutes": "{n} min",
+    "faqTitle": "FAQ",
+    "faq1q": "How long can I access it?",
+    "faq1a": "Buy once and keep access with no time limit.",
+    "faq2q": "Can I get a refund?",
+    "faq2a": "Full refund within 7 days if you haven't played or downloaded it yet.",
+    "backHome": "Home"
+  },
+  "Auth": {
+    "sheetTitle": "Log in to continue",
+    "sheetBody": "Everything you buy is saved in My learning.",
+    "kakao": "Continue with Kakao",
+    "google": "Continue with Google",
+    "or": "or with email",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "8+ characters",
+    "emailSubmit": "Log in with email",
+    "signupHint": "New here? The same button creates your account.",
+    "close": "Close",
+    "invalidEmail": "Check the email format.",
+    "shortPassword": "Use at least 8 characters.",
+    "kakaoName": "Kakao user",
+    "googleName": "Google user",
+    "via": {
+      "kakao": "Kakao",
+      "google": "Google",
+      "email": "email"
+    }
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "metaTitle": "Checkout",
+    "buyer": "Buyer",
+    "buyerLoggedIn": "{name} · {via} account",
+    "buyerNeedLogin": "Shown after you log in",
+    "login": "Log in",
+    "coupon": "Coupon code",
+    "couponApply": "Apply",
+    "couponPending": "Coupons arrive with the admin tools.",
+    "couponEmpty": "Enter a coupon code.",
+    "method": "Payment method",
+    "methods": {
+      "card": "Credit or debit card",
+      "easyPay": "Easy pay",
+      "vbank": "Bank transfer",
+      "paypal": "PayPal"
+    },
+    "agree": "I agree that digital content can't be refunded once it's played or downloaded.",
+    "agreeRequired": "Agree to the refund terms to continue.",
+    "pay": "Pay {price}",
+    "provider": "Payments are processed by Lemon Squeezy, our Merchant of Record.",
+    "alreadyOwned": "You already own this.",
+    "goOwned": "Open it"
+  },
+  "Pending": {
+    "metaTitle": "Confirming payment",
+    "checking": "Confirming your payment",
+    "checkingBody": "Keep this window open. It usually takes a few seconds.",
+    "waiting": "Waiting for your transfer",
+    "waitingBody": "We'll unlock it as soon as the transfer arrives and email you.",
+    "bank": "Account",
+    "bankValue": "KB Bank 000000-00-000000 (jina)",
+    "due": "Due",
+    "dueValue": "Within 3 days",
+    "amount": "Amount",
+    "simulateDeposit": "Confirm transfer (demo)",
+    "noOrder": "No order in progress.",
+    "backProduct": "Back to the product"
+  },
+  "Complete": {
+    "metaTitle": "Purchase complete",
+    "title": "All set! Banjjak says congrats",
+    "orderNo": "Order number",
+    "receipt": "We emailed your receipt.",
+    "badge": "New badge",
+    "badgeBody": "You earned the first purchase badge",
+    "startCourse": "Start learning",
+    "getEbook": "Get your ebook",
+    "liveInfo": "See how to join",
+    "toAccount": "See everything in My learning"
+  },
+  "Account": {
+    "metaTitle": "My learning",
+    "hello": "Hi {name}, keep shining!",
+    "needLogin": "Log in to see your courses and ebooks.",
+    "login": "Log in",
+    "badges": "Your badges",
+    "badgeNames": {
+      "first-purchase": "First purchase"
+    },
+    "noBadges": "Make your first purchase to earn a badge.",
+    "library": "Your library",
+    "empty": "Nothing here yet.",
+    "browse": "Browse classes",
+    "progress": "{done} / {total} lessons · {percent}%",
+    "download": "Download PDF",
+    "downloadNote": "This is a demo, so there's no file. With Cloudflare R2 you'll get a watermarked PDF.",
+    "liveNote": "We email the Zoom link 1 hour before it starts.",
+    "orders": "Orders",
+    "status": {
+      "pending": "Confirming",
+      "awaiting_deposit": "Awaiting transfer",
+      "paid": "Paid"
+    },
+    "submissions": "Assignments",
+    "reviewing": "In review",
+    "logout": "Log out"
+  },
+  "Learn": {
+    "metaTitle": "Learn",
+    "back": "My learning",
+    "locked": "Only buyers can watch this.",
+    "viewProduct": "View the product",
+    "player": "Video goes here (Cloudflare Stream)",
+    "lessonOf": "Lesson {n}",
+    "completeNext": "Complete and next",
+    "allDone": "You finished every lesson. Nice work!",
+    "progress": "{percent}% complete",
+    "lessons": "Lessons",
+    "assignment": "Assignment",
+    "assignmentHint": "Lesson {n}: share a link or note showing what you applied.",
+    "assignmentPlaceholder": "Paste a Notion link or write your answer",
+    "assignmentEmpty": "Write your assignment first.",
+    "submit": "Submit assignment",
+    "submitted": "Submitted. We'll let you know when feedback arrives."
   }
 }

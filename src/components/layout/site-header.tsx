@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { LocaleSwitcher } from "./locale-switcher";
+import { HeaderAccount } from "./header-account";
 
 export async function SiteHeader({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "Nav" });
@@ -13,12 +14,13 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
           jina
         </Link>
         <nav aria-label="main" className="flex items-center gap-1 sm:gap-2">
-          <span className="hidden rounded-full px-3 py-2 text-base font-bold opacity-90 sm:inline">
+          <Link href="/#classes" className="hidden rounded-full px-3 py-2 text-base font-bold hover:bg-white/15 sm:inline">
             {t("classes")}
-          </span>
+          </Link>
           <span className="hidden rounded-full px-3 py-2 text-base font-bold opacity-90 sm:inline">
             {t("blog")}
           </span>
+          <HeaderAccount />
           <LocaleSwitcher label={t("switchTo")} ariaLabel={t("language")} />
         </nav>
       </div>

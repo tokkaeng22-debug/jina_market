@@ -10,14 +10,23 @@
     "blog": "블로그",
     "myLearning": "내 학습",
     "language": "언어",
-    "switchTo": "English"
+    "switchTo": "English",
+    "account": "내 학습",
+    "login": "로그인"
   },
   "Home": {
     "heroTitle": "[한 줄 가치 제안]",
     "heroAccent": "무료로 먼저 시작해요",
     "heroCta": "무료 미니 강의 받기",
     "mascotAlt": "손 흔드는 마스코트 반짝",
-    "comingSoon": "사이트를 준비하고 있어요. 곧 강의와 전자책을 열어요."
+    "productsTitle": "지금 열려 있는 클래스",
+    "productsLead": "강의, 전자책, 라이브 중에서 골라 보세요.",
+    "leadTitle": "무료 미니 강의 받기",
+    "leadBody": "이메일을 남기면 3일 동안 하루 한 편씩 보내 드려요.",
+    "leadPlaceholder": "name@example.com",
+    "leadSubmit": "무료로 받기",
+    "leadDone": "신청했어요. 메일함을 확인해 주세요. (데모)",
+    "leadInvalid": "이메일 형식을 확인해 주세요."
   },
   "Footer": {
     "terms": "이용약관",
@@ -45,5 +54,151 @@
     "title": "페이지를 찾을 수 없어요",
     "body": "주소가 바뀌었거나 삭제된 페이지예요.",
     "home": "홈으로 가기"
+  },
+  "Demo": {
+    "banner": "더미 화면이에요. 실제 로그인과 결제는 일어나지 않아요.",
+    "reset": "처음부터"
+  },
+  "Shop": {
+    "type": {
+      "course": "동영상 강의",
+      "ebook": "전자책",
+      "live": "라이브"
+    },
+    "detail": "자세히 보기",
+    "buy": "구매하기",
+    "continue": "이어서 학습하기",
+    "download": "전자책 받기",
+    "joinInfo": "참여 안내 보기"
+  },
+  "Product": {
+    "curriculum": "커리큘럼",
+    "preview": "미리보기",
+    "minutes": "{n}분",
+    "faqTitle": "자주 묻는 질문",
+    "faq1q": "언제까지 볼 수 있나요?",
+    "faq1a": "한 번 구매하면 기간 제한 없이 볼 수 있어요.",
+    "faq2q": "환불할 수 있나요?",
+    "faq2a": "결제 후 7일 이내, 재생이나 다운로드 전이면 전액 환불돼요.",
+    "backHome": "홈으로"
+  },
+  "Auth": {
+    "sheetTitle": "로그인하고 이어서 결제",
+    "sheetBody": "구매한 상품은 마이페이지에 저장돼요.",
+    "kakao": "카카오로 계속하기",
+    "google": "Google로 계속하기",
+    "or": "또는 이메일로",
+    "email": "이메일",
+    "password": "비밀번호",
+    "passwordPlaceholder": "8자 이상",
+    "emailSubmit": "이메일로 로그인",
+    "signupHint": "처음이면 같은 버튼으로 바로 가입돼요.",
+    "close": "닫기",
+    "invalidEmail": "이메일 형식을 확인해 주세요.",
+    "shortPassword": "비밀번호는 8자 이상이에요.",
+    "kakaoName": "카카오 사용자",
+    "googleName": "Google 사용자",
+    "via": {
+      "kakao": "카카오",
+      "google": "Google",
+      "email": "이메일"
+    }
+  },
+  "Checkout": {
+    "title": "결제하기",
+    "metaTitle": "결제",
+    "buyer": "구매자",
+    "buyerLoggedIn": "{name} · {via} 계정",
+    "buyerNeedLogin": "로그인하면 표시돼요",
+    "login": "로그인",
+    "coupon": "쿠폰 코드",
+    "couponApply": "적용",
+    "couponPending": "쿠폰은 관리자 기능을 만들 때 연결돼요.",
+    "couponEmpty": "쿠폰 코드를 입력해 주세요.",
+    "method": "결제 수단",
+    "methods": {
+      "card": "신용 · 체크카드",
+      "easyPay": "카카오페이 · 토스페이",
+      "vbank": "가상계좌 (무통장입금)",
+      "paypal": "PayPal"
+    },
+    "agree": "디지털 콘텐츠는 재생하거나 내려받은 뒤에는 청약철회가 제한될 수 있다는 점에 동의해요.",
+    "agreeRequired": "청약철회 안내에 동의해 주세요.",
+    "pay": "{price} 결제하기",
+    "provider": "결제는 PortOne(토스페이먼츠)으로 처리돼요.",
+    "alreadyOwned": "이미 구매한 상품이에요.",
+    "goOwned": "바로 가기"
+  },
+  "Pending": {
+    "metaTitle": "결제 확인",
+    "checking": "결제를 확인하고 있어요",
+    "checkingBody": "창을 닫지 말아 주세요. 보통 몇 초면 끝나요.",
+    "waiting": "입금을 기다리고 있어요",
+    "waitingBody": "입금이 확인되면 바로 열리고 메일로 알려 드려요.",
+    "bank": "입금 계좌",
+    "bankValue": "국민은행 000000-00-000000 (예금주 jina)",
+    "due": "입금 기한",
+    "dueValue": "주문 후 3일",
+    "amount": "입금 금액",
+    "simulateDeposit": "입금 확인 (데모)",
+    "noOrder": "진행 중인 주문이 없어요.",
+    "backProduct": "상품으로 돌아가기"
+  },
+  "Complete": {
+    "metaTitle": "구매 완료",
+    "title": "구매 완료! 반짝이가 축하해요",
+    "orderNo": "주문번호",
+    "receipt": "영수증을 메일로 보냈어요.",
+    "badge": "새 배지",
+    "badgeBody": "첫 구매 배지를 받았어요",
+    "startCourse": "바로 학습 시작",
+    "getEbook": "전자책 받으러 가기",
+    "liveInfo": "라이브 참여 안내 보기",
+    "toAccount": "마이페이지에서 전체 보기"
+  },
+  "Account": {
+    "metaTitle": "내 학습",
+    "hello": "{name}님, 오늘도 반짝!",
+    "needLogin": "로그인하면 구매한 강의와 전자책을 볼 수 있어요.",
+    "login": "로그인",
+    "badges": "내 배지",
+    "badgeNames": {
+      "first-purchase": "첫 구매"
+    },
+    "noBadges": "첫 구매를 하면 배지를 받아요.",
+    "library": "내 상품",
+    "empty": "아직 구매한 상품이 없어요.",
+    "browse": "클래스 둘러보기",
+    "progress": "{done} / {total}강 · {percent}%",
+    "download": "PDF 받기",
+    "downloadNote": "데모라 실제 파일은 없어요. Cloudflare R2를 연결하면 워터마크가 들어간 PDF를 내려받아요.",
+    "liveNote": "Zoom 링크는 시작 1시간 전에 메일로 보내 드려요.",
+    "orders": "주문 내역",
+    "status": {
+      "pending": "확인 중",
+      "awaiting_deposit": "입금 대기",
+      "paid": "결제 완료"
+    },
+    "submissions": "과제 제출",
+    "reviewing": "검토 중",
+    "logout": "로그아웃"
+  },
+  "Learn": {
+    "metaTitle": "학습",
+    "back": "내 학습",
+    "locked": "구매한 사람만 볼 수 있어요.",
+    "viewProduct": "상품 보기",
+    "player": "영상 자리 (Cloudflare Stream 연결 예정)",
+    "lessonOf": "{n}강",
+    "completeNext": "완료하고 다음 강의",
+    "allDone": "모든 강의를 마쳤어요. 수고했어요!",
+    "progress": "진도율 {percent}%",
+    "lessons": "강의 목록",
+    "assignment": "과제 제출",
+    "assignmentHint": "{n}강 과제: 배운 내용을 적용한 결과를 링크나 글로 남겨 주세요.",
+    "assignmentPlaceholder": "노션 페이지 링크나 내용을 적어 주세요",
+    "assignmentEmpty": "과제 내용을 입력해 주세요.",
+    "submit": "과제 제출하기",
+    "submitted": "제출했어요. 피드백이 오면 알려 드려요."
   }
 }

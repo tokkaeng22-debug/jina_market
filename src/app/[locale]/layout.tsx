@@ -8,6 +8,7 @@ import { siteUrl } from "@/lib/env";
 import { JsonLd, organizationJsonLd, personJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { DemoBanner } from "@/components/layout/demo-banner";
 import "../globals.css";
 
 // 실서비스에서는 Pretendard 셀프호스팅으로 교체 예정 (DESIGN_BRIEF.md)
@@ -43,6 +44,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={locale} className={notoSansKr.variable}>
       <body className="flex min-h-dvh flex-col antialiased">
         <NextIntlClientProvider>
+          <DemoBanner />
           <SiteHeader locale={locale} />
           <main className="flex-1">{children}</main>
           <SiteFooter locale={locale} />

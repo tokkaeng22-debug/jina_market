@@ -110,7 +110,7 @@ RLS 원칙: 강의 · 전자책 · 과제 데이터는 `entitlements`에 유효�
 
 **원칙: 접근 권한은 `entitlements` 한 곳에서만 판단하고, 부여는 서버의 단일 함수 `grantEntitlements(order)`만 수행한다.**
 
-1. **결제 전**: 로그인을 필수로 한다. 서버가 `orders`에 `pending` 주문을 만들고 금액을 확정한다.
+1. **결제 전**: 로그인을 필수로 한다. 홈 · 상품 상세는 로그인 없이 보고, 비로그인 상태로 "구매하기"를 누르면 결제 화면 위에 로그인 창을 띄운다(페이지 이동 없음). 창에는 카카오 · Google 간편 로그인을 위에, 이메일 로그인을 아래에 둔다. 로그인하면 창만 닫히고 그 결제 화면에서 이어간다. 서버가 `orders`에 `pending` 주문을 만들고 금액을 확정한다.
    - PortOne: `paymentId` = 우리 주문번호, `customData`에 user_id 전달
    - Lemon Squeezy: `checkout_data.custom`에 user_id · order_id 전달, 결제 후 이동 주소는 우리 결제 확인 페이지로 설정
 2. **결제 확인 (두 경로, 먼저 오는 쪽이 처리)**:
