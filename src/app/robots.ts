@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/env";
+import { siteIndexable, siteUrl } from "@/lib/env";
 
 /** 로그인 · 결제 · 관리자 영역. 모든 크롤러에 공통으로 막는다. */
 const privatePaths = [
@@ -29,12 +29,8 @@ const aiCrawlers = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
-  const isProduction = process.env.VERCEL_ENV
-    ? process.env.VERCEL_ENV === "production"
-    : process.env.NODE_ENV === "production";
-
-  // 프리뷰 · 스테이징 배포는 색인되지 않도록 전부 막는다.
-  if (!isProduction) {
+  // 프리뷰 배포와 정식 오픈 전(SITE_INDEXABLE≠true)에는 전부 막는다.
+  if (!siteIndexable) {
     return { rules: [{ userAgent: "*", disallow: "/" }] };
   }
 

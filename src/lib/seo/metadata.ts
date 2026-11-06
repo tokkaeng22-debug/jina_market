@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteUrl } from "@/lib/env";
+import { siteIndexable, siteUrl } from "@/lib/env";
 import { routing, type Locale } from "@/i18n/routing";
 
 const ogLocale: Record<Locale, string> = { ko: "ko_KR", en: "en_US" };
@@ -43,6 +43,7 @@ export function pageMetadata({ locale, path, title, description, noindex }: Page
       ...(title ? { title } : {}),
       ...(description ? { description } : {}),
     },
-    robots: noindex ? { index: false, follow: true } : { index: true, follow: true },
+    // 정식 오픈 전에는 공개 페이지도 noindex (robots.txt와 이중으로 막는다)
+    robots: noindex || !siteIndexable ? { index: false, follow: true } : { index: true, follow: true },
   };
 }
