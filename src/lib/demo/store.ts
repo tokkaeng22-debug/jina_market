@@ -5,9 +5,8 @@ import { getDemoProduct } from "./products";
 
 /**
  * 더미 UI용 상태 (브라우저 localStorage).
- * 실제 서비스에서는 Supabase Auth · orders · entitlements 테이블이 이 역할을 한다 (PLAN.md 5-1).
+ * 로그인은 이미 Supabase Auth를 쓰고, 주문 · 권한은 결제를 연결할 때 orders · entitlements 테이블로 바꾼다 (PLAN.md 5-1).
  */
-export type LoginVia = "kakao" | "google" | "email";
 export type PayMethod = "card" | "easyPay" | "vbank" | "paypal";
 export type OrderStatus = "pending" | "awaiting_deposit" | "paid";
 
@@ -22,7 +21,6 @@ export type DemoOrder = {
 };
 
 export type DemoState = {
-  user: { name: string; via: LoginVia } | null;
   orders: DemoOrder[];
   /** entitlements: 구매 권한이 있는 상품 slug */
   owned: string[];
@@ -33,7 +31,7 @@ export type DemoState = {
 };
 
 const KEY = "jina-demo-v1";
-const EMPTY: DemoState = { user: null, orders: [], owned: [], progress: {}, submissions: [], badges: [] };
+const EMPTY: DemoState = { orders: [], owned: [], progress: {}, submissions: [], badges: [] };
 
 let cache: { raw: string | null; state: DemoState } = { raw: null, state: EMPTY };
 const listeners = new Set<() => void>();
@@ -89,12 +87,6 @@ export function useHydrated() {
 }
 
 export const demo = {
-  login(name: string, via: LoginVia) {
-    write({ ...read(), user: { name, via } });
-  },
-  logout() {
-    write({ ...read(), user: null });
-  },
   placeOrder(slug: string, method: PayMethod, currency: "KRW" | "USD"): DemoOrder {
     const s = read();
     const product = getDemoProduct(slug);

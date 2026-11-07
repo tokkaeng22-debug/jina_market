@@ -56,7 +56,7 @@
     "home": "홈으로 가기"
   },
   "Demo": {
-    "banner": "더미 화면이에요. 실제 로그인과 결제는 일어나지 않아요.",
+    "banner": "로그인은 실제로 동작해요. 결제 · 구매 기록은 아직 더미예요.",
     "reset": "처음부터"
   },
   "Shop": {
@@ -92,17 +92,27 @@
     "password": "비밀번호",
     "passwordPlaceholder": "8자 이상",
     "emailSubmit": "이메일로 로그인",
-    "signupHint": "처음이면 같은 버튼으로 바로 가입돼요.",
     "close": "닫기",
     "invalidEmail": "이메일 형식을 확인해 주세요.",
     "shortPassword": "비밀번호는 8자 이상이에요.",
-    "kakaoName": "카카오 사용자",
-    "googleName": "Google 사용자",
     "via": {
       "kakao": "카카오",
       "google": "Google",
       "email": "이메일"
-    }
+    },
+    "signupTitle": "이메일로 가입하고 이어서 결제",
+    "signupSubmit": "이메일로 가입하기",
+    "toSignup": "처음이세요? 이메일로 가입하기",
+    "toSignin": "이미 가입했어요. 로그인하기",
+    "working": "잠시만요…",
+    "wrongCredentials": "이메일 또는 비밀번호가 맞지 않아요.",
+    "emailNotConfirmed": "가입 확인 메일의 링크를 먼저 눌러 주세요.",
+    "alreadyRegistered": "이미 가입된 이메일이에요. 로그인해 주세요.",
+    "providerSoon": "{provider} 로그인은 준비 중이에요. 지금은 이메일로 이용해 주세요.",
+    "genericError": "잠시 후 다시 시도해 주세요.",
+    "checkInboxTitle": "메일함을 확인해 주세요",
+    "checkInbox": "{email}로 확인 메일을 보냈어요. 메일의 링크를 누르면 가입이 끝나요.",
+    "backToLogin": "로그인 화면으로"
   },
   "Checkout": {
     "title": "결제하기",

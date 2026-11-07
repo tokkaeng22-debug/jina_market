@@ -5,7 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { formatPrice, getDemoProduct, ownedHref } from "@/lib/demo/products";
-import { demo, useDemo, useHydrated, type PayMethod } from "@/lib/demo/store";
+import { demo, type PayMethod } from "@/lib/demo/store";
+import { useOwned } from "@/lib/demo/use-owned";
+import { useAuth } from "@/lib/auth/use-auth";
 import { LoginSheet } from "@/components/auth/login-sheet";
 import { btnPrimary, btnSecondary, card, chip, fieldError, input } from "@/components/ui/styles";
 
@@ -18,15 +20,15 @@ export function CheckoutForm({ slug }: { slug: string }) {
   const ts = useTranslations("Shop");
   const locale = useLocale() as Locale;
   const router = useRouter();
-  const { user, owned } = useDemo();
-  const hydrated = useHydrated();
+  const { owned } = useOwned();
+  const { status, user } = useAuth();
   const product = getDemoProduct(slug)!;
   const methods = methodsByLocale[locale];
 
   const [manualSheet, setSheet] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   // 비로그인으로 들어오면 결제 화면 위에 로그인 창을 바로 띄운다
-  const sheet = manualSheet || (hydrated && !user && !dismissed);
+  const sheet = manualSheet || (status === "signedOut" && !dismissed);
   const [method, setMethod] = useState<PayMethod>(methods[0]);
   const [agree, setAgree] = useState(false);
   const [agreeError, setAgreeError] = useState(false);
@@ -35,7 +37,7 @@ export function CheckoutForm({ slug }: { slug: string }) {
 
   const price = formatPrice(product, locale);
 
-  if (hydrated && owned.includes(slug)) {
+  if (owned.includes(slug)) {
     return (
       <div className={`${card} flex flex-col items-start gap-3`}>
         <p className="font-bold">{t("alreadyOwned")}</p>
@@ -68,10 +70,10 @@ export function CheckoutForm({ slug }: { slug: string }) {
           <div>
             <p className="text-sm text-muted">{t("buyer")}</p>
             <p className="font-bold">
-              {hydrated && user ? t("buyerLoggedIn", { name: user.name, via: ta(`via.${user.via}`) }) : t("buyerNeedLogin")}
+              {user ? t("buyerLoggedIn", { name: user.name, via: ta(`via.${user.via}`) }) : t("buyerNeedLogin")}
             </p>
           </div>
-          {!(hydrated && user) && (
+          {status === "signedOut" && (
             <button type="button" onClick={() => setSheet(true)} className={btnSecondary}>
               {t("login")}
             </button>

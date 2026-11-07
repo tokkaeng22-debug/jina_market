@@ -5,21 +5,22 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getDemoProduct } from "@/lib/demo/products";
-import { demo, useDemo, useHydrated } from "@/lib/demo/store";
+import { demo, useDemo } from "@/lib/demo/store";
+import { useOwned } from "@/lib/demo/use-owned";
 import { btnPrimary, btnSecondary, card, fieldError, input } from "@/components/ui/styles";
 
 /** 학습 화면: 권한이 있을 때만 영상 자리와 과제 제출을 보여 준다 */
 export function LearnView({ slug }: { slug: string }) {
   const t = useTranslations("Learn");
   const locale = useLocale() as Locale;
-  const { owned, progress } = useDemo();
-  const hydrated = useHydrated();
+  const { progress } = useDemo();
+  const { ready, owned } = useOwned();
   const [body, setBody] = useState("");
   const [msg, setMsg] = useState<"" | "empty" | "sent">("");
   const product = getDemoProduct(slug)!;
   const lessons = product.lessons ?? [];
 
-  if (!hydrated) return null;
+  if (!ready) return null;
 
   if (!owned.includes(slug)) {
     return (

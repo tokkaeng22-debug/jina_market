@@ -5,8 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { formatAmount, getDemoProduct } from "@/lib/demo/products";
-import { demo, useDemo, useHydrated } from "@/lib/demo/store";
+import { useDemo, useHydrated } from "@/lib/demo/store";
 import { LoginSheet } from "@/components/auth/login-sheet";
+import { signOut, useAuth } from "@/lib/auth/use-auth";
 import { btnPrimary, btnSecondary, card, chip } from "@/components/ui/styles";
 
 /** 마이페이지: 권한(owned)이 있는 상품만 보여 준다 (PLAN.md 5-1) */
@@ -16,13 +17,14 @@ export function AccountView() {
   const tl = useTranslations("Learn");
   const locale = useLocale() as Locale;
   const state = useDemo();
+  const { status, user } = useAuth();
   const hydrated = useHydrated();
   const [sheet, setSheet] = useState(false);
   const [note, setNote] = useState<string | null>(null);
 
-  if (!hydrated) return null;
+  if (!hydrated || status === "loading") return null;
 
-  if (!state.user) {
+  if (!user) {
     return (
       <div className={`${card} flex flex-col items-start gap-3`}>
         <p className="font-bold">{t("needLogin")}</p>
@@ -40,8 +42,8 @@ export function AccountView() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-extrabold">{t("hello", { name: state.user.name })}</h1>
-        <button type="button" onClick={() => demo.logout()} className={btnSecondary}>
+        <h1 className="text-2xl font-extrabold">{t("hello", { name: user.name })}</h1>
+        <button type="button" onClick={() => signOut()} className={btnSecondary}>
           {t("logout")}
         </button>
       </div>

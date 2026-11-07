@@ -56,7 +56,7 @@
     "home": "Go to home"
   },
   "Demo": {
-    "banner": "This is a demo. No real login or payment happens.",
+    "banner": "Login is real. Payments and purchases are still a demo.",
     "reset": "Start over"
   },
   "Shop": {
@@ -92,17 +92,27 @@
     "password": "Password",
     "passwordPlaceholder": "8+ characters",
     "emailSubmit": "Log in with email",
-    "signupHint": "New here? The same button creates your account.",
     "close": "Close",
     "invalidEmail": "Check the email format.",
     "shortPassword": "Use at least 8 characters.",
-    "kakaoName": "Kakao user",
-    "googleName": "Google user",
     "via": {
       "kakao": "Kakao",
       "google": "Google",
       "email": "email"
-    }
+    },
+    "signupTitle": "Sign up with email to continue",
+    "signupSubmit": "Sign up with email",
+    "toSignup": "New here? Sign up with email",
+    "toSignin": "Already have an account? Log in",
+    "working": "One moment…",
+    "wrongCredentials": "The email or password is incorrect.",
+    "emailNotConfirmed": "Open the link in your confirmation email first.",
+    "alreadyRegistered": "This email is already registered. Please log in.",
+    "providerSoon": "{provider} login is coming soon. Please use email for now.",
+    "genericError": "Something went wrong. Please try again in a moment.",
+    "checkInboxTitle": "Check your inbox",
+    "checkInbox": "We sent a confirmation email to {email}. Open the link to finish signing up.",
+    "backToLogin": "Back to log in"
   },
   "Checkout": {
     "title": "Checkout",
