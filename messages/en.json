@@ -194,7 +194,7 @@
     "browse": "Browse classes",
     "progress": "{done} / {total} lessons · {percent}%",
     "download": "Download PDF",
-    "downloadNote": "This is a demo, so there's no file. With Cloudflare R2 you'll get a watermarked PDF.",
+    "downloadNote": "Your email appears at the bottom of every page. Please don't share the file.",
     "liveNote": "We email the Zoom link 1 hour before it starts.",
     "orders": "Orders",
     "status": {

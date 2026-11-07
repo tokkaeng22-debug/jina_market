@@ -28,7 +28,6 @@ export function AccountView({ products, badges }: { products: Product[]; badges:
   const account = useAccount();
   const { owned } = useOwned();
   const [sheet, setSheet] = useState(false);
-  const [note, setNote] = useState<string | null>(null);
 
   if (!hydrated || status === "loading" || !account.ready) return null;
 
@@ -115,10 +114,11 @@ export function AccountView({ products, badges }: { products: Product[]; badges:
               )}
               {p.type === "ebook" && (
                 <>
-                  <button type="button" onClick={() => setNote(p.slug)} className={`${btnPrimary} w-fit`}>
+                  {/* API 경로라 언어 접두사가 붙는 Link 대신 a를 쓴다 */}
+                  <a href={`/api/ebooks/${p.slug}/download`} className={`${btnPrimary} w-fit`}>
                     {t("download")}
-                  </button>
-                  {note === p.slug && <p className="text-sm text-muted">{t("downloadNote")}</p>}
+                  </a>
+                  <p className="text-sm text-muted">{t("downloadNote")}</p>
                 </>
               )}
               {p.type === "live" && (

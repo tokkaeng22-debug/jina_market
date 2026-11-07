@@ -9,12 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
     "@portone/browser-sdk": "^0.1.13",
     "@portone/server-sdk": "^0.19.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.0",
     "next": "16.4.5",
     "next-intl": "^4.14.9",
+    "pdf-lib": "^1.17.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "server-only": "^0.0.1",

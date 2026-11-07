@@ -194,7 +194,7 @@
     "browse": "클래스 둘러보기",
     "progress": "{done} / {total}강 · {percent}%",
     "download": "PDF 받기",
-    "downloadNote": "데모라 실제 파일은 없어요. Cloudflare R2를 연결하면 워터마크가 들어간 PDF를 내려받아요.",
+    "downloadNote": "PDF 모든 쪽 아래에 구매자 이메일이 표시돼요. 다른 사람과 공유하지 말아 주세요.",
     "liveNote": "Zoom 링크는 시작 1시간 전에 메일로 보내 드려요.",
     "orders": "주문 내역",
     "status": {
