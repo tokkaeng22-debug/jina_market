@@ -56,7 +56,7 @@
     "home": "Go to home"
   },
   "Demo": {
-    "banner": "Login and products are real. Payments are still practice only.",
+    "banner": "Payments are in test mode. No real money is charged.",
     "reset": "Start over"
   },
   "Shop": {
@@ -130,36 +130,51 @@
     "methods": {
       "card": "Credit or debit card",
       "easyPay": "Easy pay",
-      "vbank": "Bank transfer",
-      "paypal": "PayPal"
+      "vbank": "Bank transfer"
     },
     "agree": "I agree that digital content can't be refunded once it's played or downloaded.",
     "agreeRequired": "Agree to the refund terms to continue.",
     "pay": "Pay {price}",
-    "provider": "Payments are processed by Lemon Squeezy, our Merchant of Record.",
+    "provider": "Payments are processed securely by PortOne (KG Inicis).",
     "alreadyOwned": "You already own this.",
-    "goOwned": "Open it"
+    "goOwned": "Open it",
+    "phone": "Mobile number",
+    "phoneHint": "Used by the payment provider to confirm your payment. We don't store it.",
+    "phoneInvalid": "Check your mobile number (e.g. 010-1234-5678).",
+    "opening": "Opening checkout…",
+    "payError": "We couldn't start the payment. Try again in a moment.",
+    "payClosed": "The payment didn't go through. {message}",
+    "notReady": "Checkout is being set up. Please check back soon.",
+    "intlSoon": "International checkout (card · PayPal) opens soon."
   },
   "Pending": {
     "metaTitle": "Confirming payment",
     "checking": "Confirming your payment",
     "checkingBody": "Keep this window open. It usually takes a few seconds.",
     "waiting": "Waiting for your transfer",
-    "waitingBody": "We'll unlock it as soon as the transfer arrives and email you.",
+    "waitingBody": "Transfer to the account below. We'll confirm it automatically and unlock your purchase.",
     "bank": "Account",
-    "bankValue": "KB Bank 000000-00-000000 (jina)",
-    "due": "Due",
-    "dueValue": "Within 3 days",
+    "due": "Pay by",
     "amount": "Amount",
-    "simulateDeposit": "Confirm transfer (demo)",
     "noOrder": "No order in progress.",
-    "backProduct": "Back to the product"
+    "backProduct": "Back to the product",
+    "account": "Account number",
+    "holder": "Account holder",
+    "checkDeposit": "I've paid, check again",
+    "failed": "The payment didn't go through",
+    "failedBody": "The payment window was closed or the payment was declined. Please try again.",
+    "retry": "Try again",
+    "refunded": "This order was refunded.",
+    "toAccount": "Go to My learning",
+    "slow": "This is taking a little longer",
+    "slowBody": "Once the payment clears, it appears in My learning. You can close this window.",
+    "checkAgain": "Check again"
   },
   "Complete": {
     "metaTitle": "Purchase complete",
     "title": "All set! Banjjak says congrats",
     "orderNo": "Order number",
-    "receipt": "We emailed your receipt.",
+    "receipt": "The payment provider emails your receipt.",
     "badge": "New badge",
     "badgeBody": "You earned the first purchase badge",
     "startCourse": "Start learning",
@@ -210,5 +225,31 @@
     "assignmentEmpty": "Write your assignment first.",
     "submit": "Submit assignment",
     "submitted": "Submitted. We'll let you know when feedback arrives."
+  },
+  "Banks": {
+    "KOOKMIN": "KB Kookmin Bank",
+    "SHINHAN": "Shinhan Bank",
+    "WOORI": "Woori Bank",
+    "HANA": "Hana Bank",
+    "NONGHYUP": "NongHyup Bank",
+    "LOCAL_NONGHYUP": "Local NongHyup",
+    "IBK": "IBK Industrial Bank",
+    "KAKAO": "KakaoBank",
+    "TOSS": "Toss Bank",
+    "K_BANK": "K Bank",
+    "STANDARD_CHARTERED": "SC Bank Korea",
+    "CITI": "Citibank Korea",
+    "BUSAN": "Busan Bank",
+    "DAEGU": "Daegu Bank",
+    "KYONGNAM": "Kyongnam Bank",
+    "KWANGJU": "Gwangju Bank",
+    "JEONBUK": "Jeonbuk Bank",
+    "JEJU": "Jeju Bank",
+    "SUHYUP": "Suhyup Bank",
+    "POST": "Korea Post",
+    "KFCC": "Saemaul Geumgo",
+    "SHINHYUP": "Shinhyup",
+    "SAVINGS_BANK": "Savings bank",
+    "KDB": "KDB"
   }
 }

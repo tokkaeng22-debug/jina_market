@@ -56,7 +56,7 @@
     "home": "홈으로 가기"
   },
   "Demo": {
-    "banner": "로그인 · 상품은 실제 데이터예요. 결제는 아직 연습용이에요.",
+    "banner": "결제는 테스트 모드예요. 실제로 돈이 나가지 않아요.",
     "reset": "처음부터"
   },
   "Shop": {
@@ -129,37 +129,52 @@
     "method": "결제 수단",
     "methods": {
       "card": "신용 · 체크카드",
-      "easyPay": "카카오페이 · 토스페이",
-      "vbank": "가상계좌 (무통장입금)",
-      "paypal": "PayPal"
+      "easyPay": "간편결제 (카카오페이 · 네이버페이 등)",
+      "vbank": "가상계좌 (무통장입금)"
     },
     "agree": "디지털 콘텐츠는 재생하거나 내려받은 뒤에는 청약철회가 제한될 수 있다는 점에 동의해요.",
     "agreeRequired": "청약철회 안내에 동의해 주세요.",
     "pay": "{price} 결제하기",
-    "provider": "결제는 PortOne(토스페이먼츠)으로 처리돼요.",
+    "provider": "결제는 PortOne(KG이니시스)으로 안전하게 처리돼요.",
     "alreadyOwned": "이미 구매한 상품이에요.",
-    "goOwned": "바로 가기"
+    "goOwned": "바로 가기",
+    "phone": "휴대폰 번호",
+    "phoneHint": "결제사가 결제 확인에만 써요. 우리 사이트에는 저장하지 않아요.",
+    "phoneInvalid": "휴대폰 번호를 확인해 주세요. (예: 010-1234-5678)",
+    "opening": "결제창을 여는 중…",
+    "payError": "결제를 시작하지 못했어요. 잠시 후 다시 시도해 주세요.",
+    "payClosed": "결제가 완료되지 않았어요. {message}",
+    "notReady": "결제 준비 중이에요. 조금만 기다려 주세요.",
+    "intlSoon": "해외 결제(카드 · PayPal)는 곧 열려요."
   },
   "Pending": {
     "metaTitle": "결제 확인",
     "checking": "결제를 확인하고 있어요",
     "checkingBody": "창을 닫지 말아 주세요. 보통 몇 초면 끝나요.",
     "waiting": "입금을 기다리고 있어요",
-    "waitingBody": "입금이 확인되면 바로 열리고 메일로 알려 드려요.",
+    "waitingBody": "아래 계좌로 입금하면 자동으로 확인되고, 바로 내 학습에 들어가요.",
     "bank": "입금 계좌",
-    "bankValue": "국민은행 000000-00-000000 (예금주 jina)",
     "due": "입금 기한",
-    "dueValue": "주문 후 3일",
     "amount": "입금 금액",
-    "simulateDeposit": "입금 확인 (데모)",
     "noOrder": "진행 중인 주문이 없어요.",
-    "backProduct": "상품으로 돌아가기"
+    "backProduct": "상품으로 돌아가기",
+    "account": "계좌번호",
+    "holder": "예금주",
+    "checkDeposit": "입금했어요, 다시 확인하기",
+    "failed": "결제가 완료되지 않았어요",
+    "failedBody": "결제창이 닫혔거나 결제가 거절됐어요. 다시 시도해 주세요.",
+    "retry": "다시 결제하기",
+    "refunded": "환불된 주문이에요.",
+    "toAccount": "내 학습으로 가기",
+    "slow": "확인이 조금 늦어지고 있어요",
+    "slowBody": "결제가 끝나면 내 학습에 자동으로 들어가요. 이 창은 닫아도 돼요.",
+    "checkAgain": "다시 확인하기"
   },
   "Complete": {
     "metaTitle": "구매 완료",
     "title": "구매 완료! 반짝이가 축하해요",
     "orderNo": "주문번호",
-    "receipt": "영수증을 메일로 보냈어요.",
+    "receipt": "결제 영수증은 결제사가 메일로 보내 드려요.",
     "badge": "새 배지",
     "badgeBody": "첫 구매 배지를 받았어요",
     "startCourse": "바로 학습 시작",
@@ -210,5 +225,31 @@
     "assignmentEmpty": "과제 내용을 입력해 주세요.",
     "submit": "과제 제출하기",
     "submitted": "제출했어요. 피드백이 오면 알려 드려요."
+  },
+  "Banks": {
+    "KOOKMIN": "국민은행",
+    "SHINHAN": "신한은행",
+    "WOORI": "우리은행",
+    "HANA": "하나은행",
+    "NONGHYUP": "농협은행",
+    "LOCAL_NONGHYUP": "지역농협",
+    "IBK": "IBK기업은행",
+    "KAKAO": "카카오뱅크",
+    "TOSS": "토스뱅크",
+    "K_BANK": "케이뱅크",
+    "STANDARD_CHARTERED": "SC제일은행",
+    "CITI": "씨티은행",
+    "BUSAN": "부산은행",
+    "DAEGU": "대구은행",
+    "KYONGNAM": "경남은행",
+    "KWANGJU": "광주은행",
+    "JEONBUK": "전북은행",
+    "JEJU": "제주은행",
+    "SUHYUP": "수협은행",
+    "POST": "우체국",
+    "KFCC": "새마을금고",
+    "SHINHYUP": "신협",
+    "SAVINGS_BANK": "저축은행",
+    "KDB": "산업은행"
   }
 }

@@ -15,7 +15,7 @@ import { btnPrimary, btnSecondary, card, chip } from "@/components/ui/styles";
 /**
  * 마이페이지: 권한(entitlements)이 있는 상품만 보여 준다 (PLAN.md 5-1).
  * 상품 · 배지 이름은 서버가 넘긴 카탈로그에서, 주문 · 권한 · 배지 기록은 DB에서 읽는다.
- * 진도 · 과제는 아직 연습용(localStorage)이다.
+ * 진도 · 과제는 아직 브라우저(localStorage)에만 저장한다.
  */
 export function AccountView({ products, badges }: { products: Product[]; badges: Badge[] }) {
   const t = useTranslations("Account");
@@ -47,12 +47,11 @@ export function AccountView({ products, badges }: { products: Product[]; badges:
   const bySlug = new Map(products.map((p) => [p.slug, p]));
   const ownedProducts = owned.flatMap((slug) => bySlug.get(slug) ?? []);
   const badgeName = new Map(badges.map((b) => [b.code, b.name[locale]]));
-  const myBadges = [...new Set([...account.data.badges, ...state.badges])].filter((code) => badgeName.has(code));
-  // DB 주문과 연습용 주문을 최신순으로 함께 보여 준다
-  const orders = [
-    ...account.data.orders.map((o) => ({ ...o, label: o.id.slice(0, 8).toUpperCase() })),
-    ...state.orders.map((o) => ({ ...o, label: o.id })),
-  ].sort((a, b) => b.createdAt - a.createdAt);
+  const myBadges = account.data.badges.filter((code) => badgeName.has(code));
+  // 결제창을 닫아 실패로 끝난 주문은 목록에서 뺀다
+  const orders = account.data.orders
+    .filter((o) => o.status !== "failed")
+    .map((o) => ({ ...o, label: o.id.slice(0, 8).toUpperCase() }));
   const dateFmt = new Intl.DateTimeFormat(locale === "ko" ? "ko-KR" : "en-US", { month: "short", day: "numeric" });
 
   return (

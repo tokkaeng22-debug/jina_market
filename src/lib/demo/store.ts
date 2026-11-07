@@ -3,35 +3,18 @@
 import { useSyncExternalStore } from "react";
 
 /**
- * 연습용 결제 상태 (브라우저 localStorage).
- * 로그인 · 상품 · DB 주문 · 권한은 Supabase를 쓴다. 이 파일은 PortOne 결제를 연결하면 지운다 (PLAN.md 5-1).
+ * 아직 DB에 연결하지 않은 학습 기록 (브라우저 localStorage): 강의 진도 · 과제 제출.
+ * 영상(Cloudflare Stream)과 과제 게시판을 붙일 때 lesson_progress · submissions 테이블로 옮긴다.
+ * 로그인 · 상품 · 주문 · 권한 · 배지는 이미 Supabase를 쓴다.
  */
-export type PayMethod = "card" | "easyPay" | "vbank" | "paypal";
-export type OrderStatus = "pending" | "awaiting_deposit" | "paid";
-
-export type DemoOrder = {
-  id: string;
-  slug: string;
-  method: PayMethod;
-  status: OrderStatus;
-  /** 최소 단위 (원 · 센트) */
-  amount: number;
-  currency: "KRW" | "USD";
-  createdAt: number;
-};
-
 export type DemoState = {
-  orders: DemoOrder[];
-  /** entitlements: 구매 권한이 있는 상품 slug */
-  owned: string[];
   /** 강의별 완료한 강 수 */
   progress: Record<string, number>;
   submissions: { slug: string; lesson: number; body: string; createdAt: number }[];
-  badges: string[];
 };
 
-const KEY = "jina-demo-v2";
-const EMPTY: DemoState = { orders: [], owned: [], progress: {}, submissions: [], badges: [] };
+const KEY = "makegrow-learning-v1";
+const EMPTY: DemoState = { progress: {}, submissions: [] };
 
 let cache: { raw: string | null; state: DemoState } = { raw: null, state: EMPTY };
 const listeners = new Set<() => void>();
@@ -87,32 +70,6 @@ export function useHydrated() {
 }
 
 export const demo = {
-  placeOrder(product: { slug: string; priceKrw: number; priceUsdCents: number }, method: PayMethod, currency: "KRW" | "USD"): DemoOrder {
-    const s = read();
-    const slug = product.slug;
-    const amount = currency === "KRW" ? product.priceKrw : product.priceUsdCents;
-    const order: DemoOrder = {
-      id: `JM-${Date.now().toString(36).toUpperCase()}`,
-      slug,
-      method,
-      status: method === "vbank" ? "awaiting_deposit" : "pending",
-      amount,
-      currency,
-      createdAt: Date.now(),
-    };
-    write({ ...s, orders: [order, ...s.orders] });
-    return order;
-  },
-  /** 결제 확인 → 권한 부여. 실제 grantEntitlements()처럼 여러 번 불러도 결과가 같다 */
-  confirmOrder(id: string) {
-    const s = read();
-    const order = s.orders.find((o) => o.id === id);
-    if (!order) return;
-    const orders = s.orders.map((o) => (o.id === id ? { ...o, status: "paid" as const } : o));
-    const owned = s.owned.includes(order.slug) ? s.owned : [...s.owned, order.slug];
-    const badges = s.badges.includes("first-purchase") ? s.badges : [...s.badges, "first-purchase"];
-    write({ ...s, orders, owned, badges });
-  },
   completeLesson(slug: string, total: number) {
     const s = read();
     const done = Math.min(total, (s.progress[slug] ?? 0) + 1);

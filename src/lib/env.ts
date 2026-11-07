@@ -8,6 +8,9 @@ const publicSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
   NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1).optional(),
+  /** PortOne 상점 아이디 · 채널 키 (공개 값). 테스트 채널 → 실연동 채널로 바꿀 때 이 값만 바꾼다 */
+  NEXT_PUBLIC_PORTONE_STORE_ID: z.string().min(1).optional(),
+  NEXT_PUBLIC_PORTONE_CHANNEL_KEY: z.string().min(1).optional(),
 });
 
 /** 도메인 연결 전에는 Vercel이 주는 실서비스 주소(*.vercel.app)를 기본값으로 쓴다 */
@@ -20,6 +23,8 @@ export const publicEnv = publicSchema.parse({
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || undefined,
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || undefined,
+  NEXT_PUBLIC_PORTONE_STORE_ID: process.env.NEXT_PUBLIC_PORTONE_STORE_ID || undefined,
+  NEXT_PUBLIC_PORTONE_CHANNEL_KEY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY || undefined,
 });
 
 /** 사이트 기본 URL (끝 슬래시 없음) */
@@ -41,4 +46,11 @@ export function getSupabaseEnv() {
   const url = publicEnv.NEXT_PUBLIC_SUPABASE_URL;
   const key = publicEnv.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   return url && key ? { url, key } : null;
+}
+
+/** PortOne 결제창 설정이 있으면 반환, 없으면 null (결제 버튼을 막는다) */
+export function getPortOneEnv() {
+  const storeId = publicEnv.NEXT_PUBLIC_PORTONE_STORE_ID;
+  const channelKey = publicEnv.NEXT_PUBLIC_PORTONE_CHANNEL_KEY;
+  return storeId && channelKey ? { storeId, channelKey } : null;
 }
