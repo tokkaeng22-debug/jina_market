@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { formatPrice, getDemoProduct, ownedHref } from "@/lib/demo/products";
+import { formatPrice, ownedHref, type Product } from "@/lib/catalog/types";
 import { demo, type PayMethod } from "@/lib/demo/store";
-import { useOwned } from "@/lib/demo/use-owned";
+import { useOwned } from "@/lib/account/use-owned";
 import { useAuth } from "@/lib/auth/use-auth";
 import { LoginSheet } from "@/components/auth/login-sheet";
 import { btnPrimary, btnSecondary, card, chip, fieldError, input } from "@/components/ui/styles";
@@ -14,7 +14,7 @@ import { btnPrimary, btnSecondary, card, chip, fieldError, input } from "@/compo
 /** 국내는 PortOne(카드 · 간편결제 · 가상계좌), 해외는 Lemon Squeezy(카드 · PayPal) */
 const methodsByLocale: Record<Locale, PayMethod[]> = { ko: ["card", "easyPay", "vbank"], en: ["card", "paypal"] };
 
-export function CheckoutForm({ slug }: { slug: string }) {
+export function CheckoutForm({ product }: { product: Product }) {
   const t = useTranslations("Checkout");
   const ta = useTranslations("Auth");
   const ts = useTranslations("Shop");
@@ -22,7 +22,7 @@ export function CheckoutForm({ slug }: { slug: string }) {
   const router = useRouter();
   const { owned } = useOwned();
   const { status, user } = useAuth();
-  const product = getDemoProduct(slug)!;
+  const slug = product.slug;
   const methods = methodsByLocale[locale];
 
   const [manualSheet, setSheet] = useState(false);
@@ -51,7 +51,7 @@ export function CheckoutForm({ slug }: { slug: string }) {
   function pay() {
     if (!user) return setSheet(true);
     if (!agree) return setAgreeError(true);
-    demo.placeOrder(slug, method, locale === "ko" ? "KRW" : "USD");
+    demo.placeOrder(product, method, locale === "ko" ? "KRW" : "USD");
     router.push(`/checkout/${slug}/pending`);
   }
 

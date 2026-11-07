@@ -4,21 +4,21 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getDemoProduct } from "@/lib/demo/products";
+import type { Product } from "@/lib/catalog/types";
 import { demo, useDemo } from "@/lib/demo/store";
-import { useOwned } from "@/lib/demo/use-owned";
+import { useOwned } from "@/lib/account/use-owned";
 import { btnPrimary, btnSecondary, card, fieldError, input } from "@/components/ui/styles";
 
 /** 학습 화면: 권한이 있을 때만 영상 자리와 과제 제출을 보여 준다 */
-export function LearnView({ slug }: { slug: string }) {
+export function LearnView({ product }: { product: Product }) {
+  const slug = product.slug;
   const t = useTranslations("Learn");
   const locale = useLocale() as Locale;
   const { progress } = useDemo();
   const { ready, owned } = useOwned();
   const [body, setBody] = useState("");
   const [msg, setMsg] = useState<"" | "empty" | "sent">("");
-  const product = getDemoProduct(slug)!;
-  const lessons = product.lessons ?? [];
+  const lessons = product.lessons;
 
   if (!ready) return null;
 
@@ -36,7 +36,7 @@ export function LearnView({ slug }: { slug: string }) {
   const done = progress[slug] ?? 0;
   const current = Math.min(done, lessons.length - 1);
   const finished = done >= lessons.length;
-  const percent = Math.round((done / lessons.length) * 100);
+  const percent = lessons.length ? Math.round((done / lessons.length) * 100) : 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -58,7 +58,7 @@ export function LearnView({ slug }: { slug: string }) {
           {product.title[locale]} · {t("progress", { percent })}
         </p>
         <h1 className="text-2xl font-extrabold">
-          {finished ? t("allDone") : `${t("lessonOf", { n: current + 1 })} · ${lessons[current].title[locale]}`}
+          {finished ? t("allDone") : `${t("lessonOf", { n: current + 1 })} · ${lessons[current]?.title[locale] ?? ""}`}
         </h1>
       </div>
 
@@ -77,7 +77,7 @@ export function LearnView({ slug }: { slug: string }) {
             const isDone = i < done;
             const isCurrent = !finished && i === current;
             return (
-              <li key={i} aria-current={isCurrent ? "step" : undefined} className={`flex items-center gap-3 px-4 py-3 ${isCurrent ? "bg-mist font-bold" : ""}`}>
+              <li key={lesson.id} aria-current={isCurrent ? "step" : undefined} className={`flex items-center gap-3 px-4 py-3 ${isCurrent ? "bg-mist font-bold" : ""}`}>
                 <span className={`grid size-7 shrink-0 place-items-center rounded-full text-sm font-bold ${isDone ? "bg-sky-700 text-on-accent" : "border border-line"}`}>
                   {isDone ? "✓" : i + 1}
                 </span>

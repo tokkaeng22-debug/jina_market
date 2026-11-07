@@ -5,18 +5,19 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { demoProducts, formatPrice, getDemoProduct } from "@/lib/demo/products";
+import { getProduct, productSlugParams } from "@/lib/catalog/server";
+import { formatPrice } from "@/lib/catalog/types";
 import { BuyButton } from "@/components/shop/buy-button";
 import { chip } from "@/components/ui/styles";
 import { PageFallback } from "@/components/ui/page-fallback";
 
 export function generateStaticParams() {
-  return demoProducts.map((p) => ({ slug: p.slug }));
+  return productSlugParams();
 }
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/products/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
-  const product = getDemoProduct(slug);
+  const product = await getProduct(slug);
   if (!product) return {};
   const l = locale as Locale;
   return pageMetadata({ locale: l, path: `/products/${slug}`, title: product.title[l], description: product.summary[l] });
@@ -34,7 +35,7 @@ async function ProductPageContent({ params }: { params: PageProps<"/[locale]/pro
   const { locale: raw, slug } = await params;
   const locale = raw as Locale;
   setRequestLocale(locale);
-  const product = getDemoProduct(slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
   const [t, ts] = await Promise.all([
     getTranslations({ locale, namespace: "Product" }),
@@ -64,14 +65,14 @@ async function ProductPageContent({ params }: { params: PageProps<"/[locale]/pro
         </div>
       </section>
 
-      {product.lessons && (
+      {product.lessons.length > 0 && (
         <section aria-labelledby="curriculum" className="flex flex-col gap-3">
           <h2 id="curriculum" className="text-xl font-extrabold">
             {t("curriculum")}
           </h2>
           <ol className="divide-y divide-line rounded-2xl border border-line">
             {product.lessons.map((lesson, i) => (
-              <li key={i} className="flex items-center justify-between gap-3 px-4 py-3">
+              <li key={lesson.id} className="flex items-center justify-between gap-3 px-4 py-3">
                 <span>
                   <span className="mr-2 font-bold text-sky-700">{i + 1}</span>
                   {lesson.title[locale]}

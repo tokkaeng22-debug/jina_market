@@ -1,11 +1,10 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { getDemoProduct } from "./products";
 
 /**
- * 더미 UI용 상태 (브라우저 localStorage).
- * 로그인은 이미 Supabase Auth를 쓰고, 주문 · 권한은 결제를 연결할 때 orders · entitlements 테이블로 바꾼다 (PLAN.md 5-1).
+ * 연습용 결제 상태 (브라우저 localStorage).
+ * 로그인 · 상품 · DB 주문 · 권한은 Supabase를 쓴다. 이 파일은 PortOne 결제를 연결하면 지운다 (PLAN.md 5-1).
  */
 export type PayMethod = "card" | "easyPay" | "vbank" | "paypal";
 export type OrderStatus = "pending" | "awaiting_deposit" | "paid";
@@ -15,6 +14,7 @@ export type DemoOrder = {
   slug: string;
   method: PayMethod;
   status: OrderStatus;
+  /** 최소 단위 (원 · 센트) */
   amount: number;
   currency: "KRW" | "USD";
   createdAt: number;
@@ -30,7 +30,7 @@ export type DemoState = {
   badges: string[];
 };
 
-const KEY = "jina-demo-v1";
+const KEY = "jina-demo-v2";
 const EMPTY: DemoState = { orders: [], owned: [], progress: {}, submissions: [], badges: [] };
 
 let cache: { raw: string | null; state: DemoState } = { raw: null, state: EMPTY };
@@ -87,10 +87,10 @@ export function useHydrated() {
 }
 
 export const demo = {
-  placeOrder(slug: string, method: PayMethod, currency: "KRW" | "USD"): DemoOrder {
+  placeOrder(product: { slug: string; priceKrw: number; priceUsdCents: number }, method: PayMethod, currency: "KRW" | "USD"): DemoOrder {
     const s = read();
-    const product = getDemoProduct(slug);
-    const amount = product ? (currency === "KRW" ? product.priceKrw : product.priceUsd) : 0;
+    const slug = product.slug;
+    const amount = currency === "KRW" ? product.priceKrw : product.priceUsdCents;
     const order: DemoOrder = {
       id: `JM-${Date.now().toString(36).toUpperCase()}`,
       slug,

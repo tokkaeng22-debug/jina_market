@@ -56,14 +56,15 @@
     "home": "Go to home"
   },
   "Demo": {
-    "banner": "Login is real. Payments and purchases are still a demo.",
+    "banner": "Login and products are real. Payments are still practice only.",
     "reset": "Start over"
   },
   "Shop": {
     "type": {
       "course": "Video course",
       "ebook": "Ebook",
-      "live": "Live"
+      "live": "Live",
+      "bundle": "Bundle"
     },
     "detail": "View details",
     "buy": "Buy now",
@@ -172,9 +173,6 @@
     "needLogin": "Log in to see your courses and ebooks.",
     "login": "Log in",
     "badges": "Your badges",
-    "badgeNames": {
-      "first-purchase": "First purchase"
-    },
     "noBadges": "Make your first purchase to earn a badge.",
     "library": "Your library",
     "empty": "Nothing here yet.",
@@ -187,7 +185,9 @@
     "status": {
       "pending": "Confirming",
       "awaiting_deposit": "Awaiting transfer",
-      "paid": "Paid"
+      "paid": "Paid",
+      "failed": "Payment failed",
+      "refunded": "Refunded"
     },
     "submissions": "Assignments",
     "reviewing": "In review",

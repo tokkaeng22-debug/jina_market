@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { demoProducts, getDemoProduct } from "@/lib/demo/products";
+import { getProduct, productSlugParams } from "@/lib/catalog/server";
 import { CompleteStatus } from "@/components/shop/order-status";
 import { PageFallback } from "@/components/ui/page-fallback";
 
 export function generateStaticParams() {
-  return demoProducts.map((p) => ({ slug: p.slug }));
+  return productSlugParams();
 }
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/checkout/[slug]/complete">): Promise<Metadata> {
@@ -29,10 +29,11 @@ export default function CompletePage(props: PageProps<"/[locale]/checkout/[slug]
 async function CompletePageContent({ params }: { params: PageProps<"/[locale]/checkout/[slug]/complete">["params"] }) {
   const { locale, slug } = await params;
   setRequestLocale(locale as Locale);
-  if (!getDemoProduct(slug)) notFound();
+  const product = await getProduct(slug);
+  if (!product) notFound();
   return (
     <div className="mx-auto max-w-xl px-4 py-8 sm:px-6">
-      <CompleteStatus slug={slug} />
+      <CompleteStatus product={product} />
     </div>
   );
 }

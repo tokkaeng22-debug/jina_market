@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { demoProducts, getDemoProduct } from "@/lib/demo/products";
+import { getProduct, productSlugParams } from "@/lib/catalog/server";
 import { LearnView } from "@/components/learn/learn-view";
 import { PageFallback } from "@/components/ui/page-fallback";
 
 export function generateStaticParams() {
-  return demoProducts.filter((p) => p.type === "course").map((p) => ({ slug: p.slug }));
+  return productSlugParams((p) => p.type === "course");
 }
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/learn/[slug]">): Promise<Metadata> {
@@ -29,10 +29,11 @@ export default function LearnPage(props: PageProps<"/[locale]/learn/[slug]">) {
 async function LearnPageContent({ params }: { params: PageProps<"/[locale]/learn/[slug]">["params"] }) {
   const { locale, slug } = await params;
   setRequestLocale(locale as Locale);
-  if (getDemoProduct(slug)?.type !== "course") notFound();
+  const product = await getProduct(slug);
+  if (product?.type !== "course") notFound();
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-      <LearnView slug={slug} />
+      <LearnView product={product} />
     </div>
   );
 }

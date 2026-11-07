@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { formatAmount, getDemoProduct, ownedHref } from "@/lib/demo/products";
+import { formatAmount, ownedHref, type Product } from "@/lib/catalog/types";
 import { demo, useDemo, useHydrated } from "@/lib/demo/store";
 import { Banjjak } from "@/components/brand/banjjak";
 import { btnPrimary, btnSecondary, card, chip } from "@/components/ui/styles";
@@ -14,7 +14,8 @@ import { btnPrimary, btnSecondary, card, chip } from "@/components/ui/styles";
  * 실제로는 결제사 복귀 시 서버가 결제 API로 검증하고, 웹훅이 와도 같은 grantEntitlements를 부른다.
  * 데모에서는 카드 결제를 1.5초 뒤 자동 확인한다.
  */
-export function PendingStatus({ slug }: { slug: string }) {
+export function PendingStatus({ product }: { product: Product }) {
+  const slug = product.slug;
   const t = useTranslations("Pending");
   const locale = useLocale() as Locale;
   const router = useRouter();
@@ -81,13 +82,13 @@ export function PendingStatus({ slug }: { slug: string }) {
   );
 }
 
-export function CompleteStatus({ slug }: { slug: string }) {
+export function CompleteStatus({ product }: { product: Product }) {
+  const slug = product.slug;
   const t = useTranslations("Complete");
   const th = useTranslations("Home");
   const locale = useLocale() as Locale;
   const { orders, badges } = useDemo();
   const hydrated = useHydrated();
-  const product = getDemoProduct(slug)!;
   const order = orders.find((o) => o.slug === slug && o.status === "paid");
   const paidCount = orders.filter((o) => o.status === "paid").length;
 

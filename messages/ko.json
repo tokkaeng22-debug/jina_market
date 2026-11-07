@@ -56,14 +56,15 @@
     "home": "홈으로 가기"
   },
   "Demo": {
-    "banner": "로그인은 실제로 동작해요. 결제 · 구매 기록은 아직 더미예요.",
+    "banner": "로그인 · 상품은 실제 데이터예요. 결제는 아직 연습용이에요.",
     "reset": "처음부터"
   },
   "Shop": {
     "type": {
       "course": "동영상 강의",
       "ebook": "전자책",
-      "live": "라이브"
+      "live": "라이브",
+      "bundle": "묶음 상품"
     },
     "detail": "자세히 보기",
     "buy": "구매하기",
@@ -172,9 +173,6 @@
     "needLogin": "로그인하면 구매한 강의와 전자책을 볼 수 있어요.",
     "login": "로그인",
     "badges": "내 배지",
-    "badgeNames": {
-      "first-purchase": "첫 구매"
-    },
     "noBadges": "첫 구매를 하면 배지를 받아요.",
     "library": "내 상품",
     "empty": "아직 구매한 상품이 없어요.",
@@ -187,7 +185,9 @@
     "status": {
       "pending": "확인 중",
       "awaiting_deposit": "입금 대기",
-      "paid": "결제 완료"
+      "paid": "결제 완료",
+      "failed": "결제 실패",
+      "refunded": "환불 완료"
     },
     "submissions": "과제 제출",
     "reviewing": "검토 중",

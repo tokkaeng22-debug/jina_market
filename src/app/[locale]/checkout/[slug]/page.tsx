@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { demoProducts, getDemoProduct } from "@/lib/demo/products";
+import { getProduct, productSlugParams } from "@/lib/catalog/server";
 import { CheckoutForm } from "@/components/shop/checkout-form";
 import { PageFallback } from "@/components/ui/page-fallback";
 
 export function generateStaticParams() {
-  return demoProducts.map((p) => ({ slug: p.slug }));
+  return productSlugParams();
 }
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/checkout/[slug]">): Promise<Metadata> {
@@ -29,13 +29,14 @@ export default function CheckoutPage(props: PageProps<"/[locale]/checkout/[slug]
 async function CheckoutPageContent({ params }: { params: PageProps<"/[locale]/checkout/[slug]">["params"] }) {
   const { locale, slug } = await params;
   setRequestLocale(locale as Locale);
-  if (!getDemoProduct(slug)) notFound();
+  const product = await getProduct(slug);
+  if (!product) notFound();
   const t = await getTranslations({ locale, namespace: "Checkout" });
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-6 px-4 py-8 sm:px-6">
       <h1 className="text-2xl font-extrabold">{t("title")}</h1>
-      <CheckoutForm slug={slug} />
+      <CheckoutForm product={product} />
     </div>
   );
 }

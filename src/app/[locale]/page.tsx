@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { demoProducts } from "@/lib/demo/products";
+import { getProducts } from "@/lib/catalog/server";
 import { Banjjak } from "@/components/brand/banjjak";
 import { ProductCard } from "@/components/shop/product-card";
 import { LeadForm } from "@/components/shop/lead-form";
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]">): Prom
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const locale = (await params).locale as Locale;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "Home" });
+  const [t, products] = await Promise.all([getTranslations({ locale, namespace: "Home" }), getProducts()]);
 
   return (
     <div className="bg-sky-600">
@@ -46,7 +46,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               <p className="mt-1 text-muted">{t("productsLead")}</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {demoProducts.map((p) => (
+              {products.map((p) => (
                 <ProductCard key={p.slug} product={p} locale={locale} />
               ))}
             </div>

@@ -4,14 +4,20 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { formatAmount, getDemoProduct } from "@/lib/demo/products";
+import { formatAmount, type Badge, type Product } from "@/lib/catalog/types";
 import { useDemo, useHydrated } from "@/lib/demo/store";
+import { useAccount } from "@/lib/account/use-account";
+import { useOwned } from "@/lib/account/use-owned";
 import { LoginSheet } from "@/components/auth/login-sheet";
 import { signOut, useAuth } from "@/lib/auth/use-auth";
 import { btnPrimary, btnSecondary, card, chip } from "@/components/ui/styles";
 
-/** 마이페이지: 권한(owned)이 있는 상품만 보여 준다 (PLAN.md 5-1) */
-export function AccountView() {
+/**
+ * 마이페이지: 권한(entitlements)이 있는 상품만 보여 준다 (PLAN.md 5-1).
+ * 상품 · 배지 이름은 서버가 넘긴 카탈로그에서, 주문 · 권한 · 배지 기록은 DB에서 읽는다.
+ * 진도 · 과제는 아직 연습용(localStorage)이다.
+ */
+export function AccountView({ products, badges }: { products: Product[]; badges: Badge[] }) {
   const t = useTranslations("Account");
   const ts = useTranslations("Shop");
   const tl = useTranslations("Learn");
@@ -19,10 +25,12 @@ export function AccountView() {
   const state = useDemo();
   const { status, user } = useAuth();
   const hydrated = useHydrated();
+  const account = useAccount();
+  const { owned } = useOwned();
   const [sheet, setSheet] = useState(false);
   const [note, setNote] = useState<string | null>(null);
 
-  if (!hydrated || status === "loading") return null;
+  if (!hydrated || status === "loading" || !account.ready) return null;
 
   if (!user) {
     return (
@@ -36,7 +44,15 @@ export function AccountView() {
     );
   }
 
-  const ownedProducts = state.owned.map(getDemoProduct).filter((p) => p !== undefined);
+  const bySlug = new Map(products.map((p) => [p.slug, p]));
+  const ownedProducts = owned.flatMap((slug) => bySlug.get(slug) ?? []);
+  const badgeName = new Map(badges.map((b) => [b.code, b.name[locale]]));
+  const myBadges = [...new Set([...account.data.badges, ...state.badges])].filter((code) => badgeName.has(code));
+  // DB 주문과 연습용 주문을 최신순으로 함께 보여 준다
+  const orders = [
+    ...account.data.orders.map((o) => ({ ...o, label: o.id.slice(0, 8).toUpperCase() })),
+    ...state.orders.map((o) => ({ ...o, label: o.id })),
+  ].sort((a, b) => b.createdAt - a.createdAt);
   const dateFmt = new Intl.DateTimeFormat(locale === "ko" ? "ko-KR" : "en-US", { month: "short", day: "numeric" });
 
   return (
@@ -52,11 +68,11 @@ export function AccountView() {
         <h2 id="badges" className="text-lg font-extrabold">
           {t("badges")}
         </h2>
-        {state.badges.length ? (
+        {myBadges.length ? (
           <div className="flex flex-wrap gap-2">
-            {state.badges.map((b) => (
+            {myBadges.map((b) => (
               <span key={b} className="inline-flex items-center gap-1.5 rounded-full bg-cheer/30 px-3 py-1 font-bold">
-                ★ {t(`badgeNames.${b}` as "badgeNames.first-purchase")}
+                ★ {badgeName.get(b)}
               </span>
             ))}
           </div>
@@ -78,7 +94,7 @@ export function AccountView() {
           </div>
         )}
         {ownedProducts.map((p) => {
-          const total = p.lessons?.length ?? 0;
+          const total = p.lessons.length;
           const done = state.progress[p.slug] ?? 0;
           const percent = total ? Math.round((done / total) * 100) : 0;
           return (
@@ -126,7 +142,7 @@ export function AccountView() {
             {state.submissions.map((s) => (
               <li key={s.createdAt} className="flex items-center justify-between gap-3 px-4 py-3">
                 <span className="min-w-0 truncate">
-                  {getDemoProduct(s.slug)?.title[locale]} · {tl("lessonOf", { n: s.lesson })}
+                  {bySlug.get(s.slug)?.title[locale]} · {tl("lessonOf", { n: s.lesson })}
                 </span>
                 <span className={chip}>{t("reviewing")}</span>
               </li>
@@ -135,18 +151,18 @@ export function AccountView() {
         </section>
       )}
 
-      {state.orders.length > 0 && (
+      {orders.length > 0 && (
         <section aria-labelledby="orders" className="flex flex-col gap-2">
           <h2 id="orders" className="text-lg font-extrabold">
             {t("orders")}
           </h2>
           <ul className="divide-y divide-line rounded-2xl border border-line">
-            {state.orders.map((o) => (
+            {orders.map((o) => (
               <li key={o.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
                 <span className="min-w-0">
-                  <span className="block font-bold">{getDemoProduct(o.slug)?.title[locale]}</span>
+                  <span className="block font-bold">{bySlug.get(o.slug)?.title[locale]}</span>
                   <span className="text-sm text-muted">
-                    {dateFmt.format(o.createdAt)} · {o.id} · {formatAmount(o.amount, o.currency, locale)}
+                    {dateFmt.format(o.createdAt)} · {o.label} · {formatAmount(o.amount, o.currency, locale)}
                   </span>
                 </span>
                 <span className={chip}>{t(`status.${o.status}`)}</span>

@@ -1,6 +1,6 @@
 /**
  * 사이트맵에 넣을 공개 정적 경로 (언어 접두사 제외).
- * 상품 · 블로그 같은 동적 경로는 DB가 생기면 sitemap.ts에서 추가로 합친다.
+ * 상품 페이지는 sitemap.ts가 DB에서 읽어 합친다. 블로그도 생기면 같은 방식으로 추가한다.
  * 작성 중이라 noindex인 페이지(약관 초안 등)는 여기에 넣지 않는다.
  */
 export const publicStaticPaths: { path: string; changeFrequency: "daily" | "weekly" | "monthly" | "yearly"; priority: number }[] = [
