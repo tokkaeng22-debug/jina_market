@@ -82,26 +82,31 @@ export function LoginSheet({ open, onClose, onSuccess }: { open: boolean; onClos
     if (password.length < 8) return setError(t("shortPassword"));
     setBusy(true);
     setError("");
-    const auth = supabaseBrowser().auth;
-
-    if (mode === "signin") {
-      const { error: err } = await auth.signInWithPassword({ email: address, password });
-      setBusy(false);
-      if (err) return setError(messageFor(err));
-    } else {
-      const { data, error: err } = await auth.signUp({
-        email: address,
-        password,
-        options: { emailRedirectTo: callbackUrl(currentPath()), data: { locale } },
-      });
-      setBusy(false);
-      if (err) return setError(messageFor(err));
-      // 확인 메일을 쓰는 설정에서 이미 가입된 이메일이면 identities가 비어서 온다
-      if (data.user && data.user.identities?.length === 0) return setError(t("alreadyRegistered"));
-      if (!data.session) {
-        setPassword("");
-        return setSentTo(address);
+    try {
+      const auth = supabaseBrowser().auth;
+      if (mode === "signin") {
+        const { error: err } = await auth.signInWithPassword({ email: address, password });
+        if (err) return setError(messageFor(err));
+      } else {
+        const { data, error: err } = await auth.signUp({
+          email: address,
+          password,
+          options: { emailRedirectTo: callbackUrl(currentPath()), data: { locale } },
+        });
+        if (err) return setError(messageFor(err));
+        // 확인 메일을 쓰는 설정에서 이미 가입된 이메일이면 identities가 비어서 온다
+        if (data.user && data.user.identities?.length === 0) return setError(t("alreadyRegistered"));
+        if (!data.session) {
+          setPassword("");
+          return setSentTo(address);
+        }
       }
+    } catch (err) {
+      // 설정 누락 · 네트워크 오류: 버튼이 "잠시만요"에 멈추지 않게 한다
+      console.error(err);
+      return setError(t("genericError"));
+    } finally {
+      setBusy(false);
     }
     setPassword("");
     onSuccess?.();
