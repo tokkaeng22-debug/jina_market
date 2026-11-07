@@ -4,7 +4,7 @@
  * [대괄호] 값은 사업자등록 · 통신판매업 신고 후 실제 값으로 바꿔야 한다.
  */
 export const siteConfig = {
-  name: "jina",
+  name: "Make & Grow",
   legalName: "[상호명]",
   /** 푸터 저작권 연도 (렌더링 중 new Date()를 쓰지 않도록 고정값) */
   copyrightYear: 2026,
