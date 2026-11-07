@@ -17,11 +17,11 @@ export type AccountOrder = {
   currency: "KRW" | "USD";
   createdAt: number;
 };
-export type AccountData = { owned: string[]; orders: AccountOrder[]; badges: string[] };
+export type AccountData = { owned: string[]; orders: AccountOrder[]; badges: string[]; isAdmin: boolean };
 
 type State = { userId: string | null; status: "idle" | "loading" | "ready"; data: AccountData };
 
-const EMPTY: AccountData = { owned: [], orders: [], badges: [] };
+const EMPTY: AccountData = { owned: [], orders: [], badges: [], isAdmin: false };
 const IDLE: State = { userId: null, status: "idle", data: EMPTY };
 
 let state: State = IDLE;
@@ -48,7 +48,7 @@ async function load(userId: string) {
   set({ userId, status: "loading", data: EMPTY });
   const db = supabaseBrowser();
   try {
-    const [ents, orders, badges] = await Promise.all([
+    const [ents, orders, badges, profile] = await Promise.all([
       db.from("entitlements").select("expires_at, revoked_at, products(slug)").eq("user_id", userId),
       db
         .from("orders")
@@ -56,8 +56,9 @@ async function load(userId: string) {
         .eq("user_id", userId)
         .order("created_at", { ascending: false }),
       db.from("user_badges").select("badges(code)").eq("user_id", userId).order("earned_at"),
+      db.from("profiles").select("is_admin").eq("id", userId).maybeSingle(),
     ]);
-    const error = ents.error ?? orders.error ?? badges.error;
+    const error = ents.error ?? orders.error ?? badges.error ?? profile.error;
     if (error) throw error;
     if (state.userId !== userId) return; // 그사이 로그아웃 · 계정 전환
 
@@ -77,6 +78,8 @@ async function load(userId: string) {
           createdAt: Date.parse(o.created_at),
         })),
       badges: (badges.data as unknown as BadgeRow[]).flatMap((b) => (b.badges ? [b.badges.code] : [])),
+      // 관리자 페이지 링크를 보여 줄지만 정한다. 실제 권한 확인은 서버가 한다
+      isAdmin: profile.data?.is_admin === true,
     };
     set({ userId, status: "ready", data });
   } catch (err) {

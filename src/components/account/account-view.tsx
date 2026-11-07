@@ -57,9 +57,16 @@ export function AccountView({ products, badges }: { products: Product[]; badges:
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-extrabold">{t("hello", { name: user.name })}</h1>
-        <button type="button" onClick={() => signOut()} className={btnSecondary}>
-          {t("logout")}
-        </button>
+        <div className="flex flex-wrap gap-2">
+          {account.data.isAdmin && (
+            <Link href="/admin" className={btnSecondary}>
+              {t("admin")}
+            </Link>
+          )}
+          <button type="button" onClick={() => signOut()} className={btnSecondary}>
+            {t("logout")}
+          </button>
+        </div>
       </div>
 
       <section aria-labelledby="badges" className="flex flex-col gap-2">

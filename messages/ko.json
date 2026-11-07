@@ -206,7 +206,8 @@
     },
     "submissions": "과제 제출",
     "reviewing": "검토 중",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "admin": "관리자 페이지"
   },
   "Learn": {
     "metaTitle": "학습",
@@ -251,5 +252,64 @@
     "SHINHYUP": "신협",
     "SAVINGS_BANK": "저축은행",
     "KDB": "산업은행"
+  },
+  "Admin": {
+    "title": "관리자",
+    "orders": "주문",
+    "products": "상품",
+    "denied": "관리자만 볼 수 있는 화면이에요. 관리자 계정으로 로그인해 주세요.",
+    "all": "전체",
+    "status": {
+      "pending": "확인 중",
+      "awaiting_deposit": "입금 대기",
+      "paid": "결제 완료",
+      "failed": "결제 실패",
+      "refunded": "환불 완료"
+    },
+    "ordersHint": "최근 주문 100건이에요. 가상계좌 입금과 취소는 PortOne 웹훅으로 자동 반영돼요. 반영이 안 됐을 때만 버튼을 쓰세요.",
+    "noOrders": "해당하는 주문이 없어요.",
+    "buyer": "구매자",
+    "method": "결제수단",
+    "methods": {
+      "card": "카드",
+      "easyPay": "간편결제",
+      "vbank": "가상계좌"
+    },
+    "orderedAt": "주문 시각",
+    "paidAt": "결제 시각",
+    "recheck": "PortOne 다시 확인",
+    "markPaid": "입금 확인 처리",
+    "markPaidConfirm": "주문 {order}을(를) 결제 완료로 바꾸고 구매자에게 권한을 줄까요?\n실제로 입금을 확인한 경우에만 눌러 주세요.",
+    "working": "처리 중…",
+    "done": "완료했어요.",
+    "resultStatus": "현재 상태: {status}",
+    "error": {
+      "forbidden": "관리자만 할 수 있어요.",
+      "notFound": "주문이나 상품을 찾지 못했어요.",
+      "invalid": "지금 상태에서는 할 수 없어요. 입력값을 확인해 주세요.",
+      "error": "처리하지 못했어요. 잠시 후 다시 시도해 주세요."
+    },
+    "productsHint": "상품을 눌러 이름 · 소개 · 가격 · 공개 상태를 고쳐요. 저장하면 사이트에 바로 반영돼요.",
+    "noProducts": "등록된 상품이 없어요.",
+    "viewPage": "상품 페이지 보기",
+    "titleKo": "상품명 (한국어)",
+    "titleEn": "상품명 (영어)",
+    "summaryKo": "소개 (한국어)",
+    "summaryEn": "소개 (영어)",
+    "metaKo": "한 줄 정보 (한국어)",
+    "metaEn": "한 줄 정보 (영어)",
+    "priceKrw": "가격 (원)",
+    "priceUsd": "가격 (달러)",
+    "visibility": "공개 상태",
+    "productStatus": {
+      "published": "공개",
+      "draft": "숨김 (작성 중)",
+      "archived": "판매 종료"
+    },
+    "priceNote": "가격을 바꿔도 이미 결제된 주문 금액은 그대로예요. 새 주문부터 새 가격이 적용돼요.",
+    "titleRequired": "상품명을 한국어 · 영어 모두 적어 주세요.",
+    "priceInvalid": "가격은 0 이상의 숫자로 적어 주세요. 원화는 정수만 돼요.",
+    "save": "저장",
+    "saved": "저장했어요."
   }
 }

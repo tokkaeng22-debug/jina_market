@@ -206,7 +206,8 @@
     },
     "submissions": "Assignments",
     "reviewing": "In review",
-    "logout": "Log out"
+    "logout": "Log out",
+    "admin": "Admin"
   },
   "Learn": {
     "metaTitle": "Learn",
@@ -251,5 +252,64 @@
     "SHINHYUP": "Shinhyup",
     "SAVINGS_BANK": "Savings bank",
     "KDB": "KDB"
+  },
+  "Admin": {
+    "title": "Admin",
+    "orders": "Orders",
+    "products": "Products",
+    "denied": "This page is for admins only. Please log in with an admin account.",
+    "all": "All",
+    "status": {
+      "pending": "Processing",
+      "awaiting_deposit": "Awaiting deposit",
+      "paid": "Paid",
+      "failed": "Failed",
+      "refunded": "Refunded"
+    },
+    "ordersHint": "The latest 100 orders. Deposits and cancellations arrive automatically through the PortOne webhook. Use these buttons only when they didn't.",
+    "noOrders": "No matching orders.",
+    "buyer": "Buyer",
+    "method": "Method",
+    "methods": {
+      "card": "Card",
+      "easyPay": "Easy pay",
+      "vbank": "Virtual account"
+    },
+    "orderedAt": "Ordered",
+    "paidAt": "Paid",
+    "recheck": "Check PortOne again",
+    "markPaid": "Mark deposit received",
+    "markPaidConfirm": "Mark order {order} as paid and give the buyer access?\nOnly do this if you have confirmed the deposit.",
+    "working": "Working…",
+    "done": "Done.",
+    "resultStatus": "Current status: {status}",
+    "error": {
+      "forbidden": "Only admins can do this.",
+      "notFound": "Couldn't find that order or product.",
+      "invalid": "This can't be done right now. Please check your input.",
+      "error": "Something went wrong. Please try again shortly."
+    },
+    "productsHint": "Open a product to edit its name, summary, price and visibility. Changes go live as soon as you save.",
+    "noProducts": "No products yet.",
+    "viewPage": "View product page",
+    "titleKo": "Name (Korean)",
+    "titleEn": "Name (English)",
+    "summaryKo": "Summary (Korean)",
+    "summaryEn": "Summary (English)",
+    "metaKo": "Short info (Korean)",
+    "metaEn": "Short info (English)",
+    "priceKrw": "Price (KRW)",
+    "priceUsd": "Price (USD)",
+    "visibility": "Visibility",
+    "productStatus": {
+      "published": "Published",
+      "draft": "Hidden (draft)",
+      "archived": "No longer sold"
+    },
+    "priceNote": "Changing the price doesn't affect orders that are already paid. New orders use the new price.",
+    "titleRequired": "Please enter the name in both Korean and English.",
+    "priceInvalid": "Prices must be numbers of 0 or more. KRW must be a whole number.",
+    "save": "Save",
+    "saved": "Saved."
   }
 }
