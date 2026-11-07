@@ -88,6 +88,13 @@
 
 RLS 원칙: 강의 · 전자책 · 과제 데이터는 `entitlements`에 유효한 행이 있는 사용자만 읽을 수 있다. 과제 제출물은 작성자 본인과 관리자만 볼 수 있다.
 
+실제 스키마는 `supabase/migrations/20261107000000_init.sql`이 기준이다. 위 표와 다른 점은 다음과 같다.
+- 번들은 `products.type = 'bundle'`인 상품으로 두고, 구성은 `bundle_items`에 적는다.
+- 레슨 제목은 공개하고, 영상 · 스크립트는 `lesson_media`에 따로 둔다(미리보기 또는 권한자만).
+- 라이브 개인 링크는 `live_registrations`, 홈 리드 폼은 `leads`에 둔다.
+- 금액은 최소 단위 정수로 저장한다(`price_usd_cents`, `orders.amount`).
+- 부여는 `grant_entitlements(order_id)`, 환불은 `revoke_order(order_id)`가 맡는다. 둘 다 서버(service_role)만 실행할 수 있다.
+
 ## 5. 상품별 기능
 
 ### 동영상 강의
