@@ -17,9 +17,11 @@ export async function recheckOrder(orderId: string): Promise<AdminResult> {
   const { data: order } = await db.from("orders").select("provider, provider_order_id").eq("id", orderId).maybeSingle();
   if (!order?.provider_order_id || order.provider !== "portone") return { ok: false, reason: "notFound" };
   try {
-    const result = await syncPayment(order.provider_order_id);
+    await syncPayment(order.provider_order_id);
+    // 결과는 PortOne 상태가 아니라 반영된 뒤의 우리 주문 상태로 보여 준다 (수동 처리한 주문은 PortOne에선 입금 대기일 수 있다)
+    const { data: after } = await db.from("orders").select("status").eq("id", orderId).maybeSingle();
     refresh();
-    return { ok: true, status: result?.status };
+    return { ok: true, status: after?.status };
   } catch (err) {
     console.error("[admin] recheck failed", err);
     return { ok: false, reason: "error" };
